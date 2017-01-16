@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context="edu.neu.madcourse.entingwu.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        style="@style/AppTheme.ActionBarStyle"
+        android:text="@string/author_name"
+        android:id="@+id/title_bar" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp">
+        <Button
+            android:text="@string/button_label_1"
+            android:id="@+id/button1"
+            android:onClick="displayAbout"
+            style="@style/ButtonDefaultStyle" />
+
+        <Button
+            android:text="@string/button_label_2"
+            android:id="@+id/button2"
+            style="@style/ButtonDefaultStyle" />
+
+        <Button
+            android:text="@string/button_label_3"
+            android:id="@+id/button3"
+            style="@style/ButtonDefaultStyle" />
+
+        <Button
+            android:text="@string/button_label_4"
+            android:id="@+id/button4"
+            style="@style/ButtonDefaultStyle" />
+
+        <Button
+            android:text="@string/button_label_5"
+            android:id="@+id/button5"
+            style="@style/ButtonDefaultStyle"/>
+
+        <Button
+            android:text="@string/button_label_6"
+            android:id="@+id/button6"
+            style="@style/ButtonDefaultStyle" />
+
+        <Button
+            android:text="@string/button_label_7"
+            android:id="@+id/button7"
+            style="@style/ButtonDefaultStyle" />
+
+        <Button
+            android:text="@string/button_label_8"
+            android:id="@+id/button8"
+            style="@style/ButtonDefaultStyle"/>
+
+        <Button
+            android:text="@string/button_label_9"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button9" />
+
+        <Button
+            android:text="@string/button_label_10"
+            android:id="@+id/button10"
+            style="@style/ButtonDefaultStyle"/>
+    </LinearLayout>
+
+    <!--<EditText android:id="@+id/edit_message"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:hint="@string/edit_message" />
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/button_send"
+    android:onClick="sendMessage"/>-->
+
+</LinearLayout>

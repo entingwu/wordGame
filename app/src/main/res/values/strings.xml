@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">NUMAD17S-EntingWu</string>
+    <string name="author_name">Enting Wu</string>
+    <string name="author_email">wu.en@husky.neu.edu</string>
+    <string name="author_year">2nd year MS</string>
+    <string name="author_program">Computer Science</string>
+    <string name="author_phoneid">353826086587939</string>
+    <string name="about_title">About</string>
+
+    <string name="button_label_1">About</string>
+    <string name="button_label_2">Generate Error</string>
+    <string name="button_label_3">Sudoku</string>
+    <string name="button_label_4">Dictionary</string>
+    <string name="button_label_5">Dabble</string>
+    <string name="button_label_6">Communication</string>
+    <string name="button_label_7">Two Player Dabble</string>
+    <string name="button_label_8">Trickest Part</string>
+    <string name="button_label_9">Final Project</string>
+    <string name="button_label_10">Quit</string>
+</resources>
