@@ -5,7 +5,8 @@
     <string name="author_year">2nd year MS</string>
     <string name="author_program">Computer Science</string>
     <string name="author_phoneid">353826086587939</string>
-    <string name="about_title">About</string>
+    <string name="title_about">About</string>
+    <string name="title_sudoku">Sudoku</string>
 
     <string name="button_label_1">About</string>
     <string name="button_label_2">Generate Error</string>
@@ -17,4 +18,12 @@
     <string name="button_label_8">Trickest Part</string>
     <string name="button_label_9">Final Project</string>
     <string name="button_label_10">Quit</string>
+
+    <string name="android_sudoku">Android Sudoku</string>
+    <string name="button_sudoku_1">Continue</string>
+    <string name="button_sudoku_2">New Game</string>
+    <string name="button_sudoku_3">About</string>
+    <string name="button_sudoku_4">Exit</string>
+
+    <string name="error_message">error</string>
 </resources>

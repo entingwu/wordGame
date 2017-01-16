@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context="edu.neu.madcourse.entingwu.MainActivity">
+    tools:context="edu.neu.madcourse.entingwu.assignment1.MainMenu">
 
     <android.support.v7.widget.Toolbar
         style="@style/AppTheme.ActionBarStyle"
         android:text="@string/author_name"
-        android:id="@+id/title_bar" />
+        android:id="@+id/title_bar"
+        android:gravity="center_vertical" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -29,11 +30,13 @@
         <Button
             android:text="@string/button_label_2"
             android:id="@+id/button2"
+            android:onClick="generateError"
             style="@style/ButtonDefaultStyle" />
 
         <Button
             android:text="@string/button_label_3"
             android:id="@+id/button3"
+            android:onClick="startSudoku"
             style="@style/ButtonDefaultStyle" />
 
         <Button
@@ -73,16 +76,5 @@
             android:id="@+id/button10"
             style="@style/ButtonDefaultStyle"/>
     </LinearLayout>
-
-    <!--<EditText android:id="@+id/edit_message"
-    android:layout_weight="1"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:hint="@string/edit_message" />
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/button_send"
-    android:onClick="sendMessage"/>-->
 
 </LinearLayout>
