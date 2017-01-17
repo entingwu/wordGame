@@ -11,9 +11,5 @@ public class AboutSudoku extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_sudoku);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.title_bar_sudoku);
-        toolbar.setTitle(R.string.title_sudoku);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimaryLight));
-        setSupportActionBar(toolbar);
     }
 }

@@ -9,18 +9,12 @@
     android:background="@color/colorPrimaryDark"
     tools:context="edu.neu.madcourse.entingwu.assignment1.AboutMe">
 
-    <android.support.v7.widget.Toolbar
-        style="@style/AppTheme.ActionBarStyle"
-        android:text="@string/title_about"
-        android:id="@+id/title_bar_about"
-        android:gravity="center_vertical" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="0dp">
 

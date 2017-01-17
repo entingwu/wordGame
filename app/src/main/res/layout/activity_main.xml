@@ -7,74 +7,76 @@
     android:background="@color/colorPrimaryDark"
     tools:context="edu.neu.madcourse.entingwu.assignment1.MainMenu">
 
-    <android.support.v7.widget.Toolbar
-        style="@style/AppTheme.ActionBarStyle"
-        android:text="@string/author_name"
-        android:id="@+id/title_bar"
-        android:gravity="center_vertical" />
-
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp">
-        <Button
-            android:text="@string/button_label_1"
-            android:id="@+id/button1"
-            android:onClick="displayAbout"
-            style="@style/ButtonDefaultStyle" />
+        android:layout_height="match_parent">
 
-        <Button
-            android:text="@string/button_label_2"
-            android:id="@+id/button2"
-            android:onClick="generateError"
-            style="@style/ButtonDefaultStyle" />
-
-        <Button
-            android:text="@string/button_label_3"
-            android:id="@+id/button3"
-            android:onClick="startSudoku"
-            style="@style/ButtonDefaultStyle" />
-
-        <Button
-            android:text="@string/button_label_4"
-            android:id="@+id/button4"
-            style="@style/ButtonDefaultStyle" />
-
-        <Button
-            android:text="@string/button_label_5"
-            android:id="@+id/button5"
-            style="@style/ButtonDefaultStyle"/>
-
-        <Button
-            android:text="@string/button_label_6"
-            android:id="@+id/button6"
-            style="@style/ButtonDefaultStyle" />
-
-        <Button
-            android:text="@string/button_label_7"
-            android:id="@+id/button7"
-            style="@style/ButtonDefaultStyle" />
-
-        <Button
-            android:text="@string/button_label_8"
-            android:id="@+id/button8"
-            style="@style/ButtonDefaultStyle"/>
-
-        <Button
-            android:text="@string/button_label_9"
-            android:textAllCaps="false"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button9" />
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
-        <Button
-            android:text="@string/button_label_10"
-            android:id="@+id/button10"
-            style="@style/ButtonDefaultStyle"/>
-    </LinearLayout>
+            <Button
+                android:text="@string/button_label_1"
+                android:id="@+id/button1"
+                android:onClick="displayAbout"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_2"
+                android:id="@+id/button2"
+                android:onClick="generateError"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_3"
+                android:id="@+id/button3"
+                android:onClick="startSudoku"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_4"
+                android:id="@+id/button4"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_5"
+                android:id="@+id/button5"
+                style="@style/ButtonDefaultStyle"/>
+
+            <Button
+                android:text="@string/button_label_6"
+                android:id="@+id/button6"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_7"
+                android:id="@+id/button7"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_8"
+                android:id="@+id/button8"
+                style="@style/ButtonDefaultStyle"/>
+
+            <Button
+                android:text="@string/button_label_9"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button9" />
+
+            <Button
+                android:text="@string/button_label_10"
+                android:id="@+id/button10"
+                style="@style/ButtonDefaultStyle"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>
