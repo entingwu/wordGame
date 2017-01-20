@@ -20,11 +20,5 @@
     <string name="button_label_9">Final Project</string>
     <string name="button_label_10">Quit</string>
 
-    <string name="android_sudoku">Android Sudoku</string>
-    <string name="button_sudoku_1">Continue</string>
-    <string name="button_sudoku_2">New Game</string>
-    <string name="button_sudoku_3">About</string>
-    <string name="button_sudoku_4">Exit</string>
-
     <string name="error_message">error</string>
 </resources>

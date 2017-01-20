@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import edu.neu.madcourse.entingwu.R;
-import edu.neu.madcourse.entingwu.sudoku.AboutSudoku;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -24,7 +23,7 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
-    /** Called when the user clicks the AboutSudoku button */
+    /** Called when the user clicks the About button */
     public void displayAbout(View view) {
         Intent intent = new Intent(this, AboutMe.class);
         startActivity(intent);
@@ -32,13 +31,8 @@ public class MainMenu extends AppCompatActivity {
 
     /** Test Runtime Error */
     public void generateError(View view) {
-        char[] chars = new char[1];
+        char[] str = new char[1];
         Button button = (Button) findViewById(R.id.button2);
-        button.setText(chars[2]);
-    }
-
-    public void startSudoku(View view) {
-        Intent intent = new Intent(this, AboutSudoku.class);
-        startActivity(intent);
+        button.setText(str[2]);
     }
 }

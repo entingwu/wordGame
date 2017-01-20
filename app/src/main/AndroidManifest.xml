@@ -21,10 +21,6 @@
             android:name=".assignment1.AboutMe"
             android:label="@string/title_about" />
 
-        <activity
-            android:name=".sudoku.AboutSudoku"
-            android:label="@string/title_sudoku" />
-
     </application>
 
 </manifest>

@@ -35,44 +35,6 @@
                 style="@style/ButtonDefaultStyle" />
 
             <Button
-                android:text="@string/button_label_3"
-                android:id="@+id/button3"
-                android:onClick="startSudoku"
-                style="@style/ButtonDefaultStyle" />
-
-            <Button
-                android:text="@string/button_label_4"
-                android:id="@+id/button4"
-                style="@style/ButtonDefaultStyle" />
-
-            <Button
-                android:text="@string/button_label_5"
-                android:id="@+id/button5"
-                style="@style/ButtonDefaultStyle"/>
-
-            <Button
-                android:text="@string/button_label_6"
-                android:id="@+id/button6"
-                style="@style/ButtonDefaultStyle" />
-
-            <Button
-                android:text="@string/button_label_7"
-                android:id="@+id/button7"
-                style="@style/ButtonDefaultStyle" />
-
-            <Button
-                android:text="@string/button_label_8"
-                android:id="@+id/button8"
-                style="@style/ButtonDefaultStyle"/>
-
-            <Button
-                android:text="@string/button_label_9"
-                android:textAllCaps="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button9" />
-
-            <Button
                 android:text="@string/button_label_10"
                 android:id="@+id/button10"
                 style="@style/ButtonDefaultStyle"/>
