@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:id="@+id/activity_display_message"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_about_me"
+    android:fillViewport="true"
     android:background="@color/colorPrimaryDark"
     tools:context="edu.neu.madcourse.entingwu.assignment1.AboutMe">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
@@ -56,7 +56,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/imageView"
-                android:layout_above="@+id/textView_phoneid" />
+                android:layout_above="@+id/textView_phoneid"
+                android:contentDescription="@string/profile_image" />
 
             <TextView
                 style="@style/TextDefaultStyle"
@@ -70,5 +71,4 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
