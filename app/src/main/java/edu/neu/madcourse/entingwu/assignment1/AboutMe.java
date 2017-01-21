@@ -17,8 +17,6 @@ public class AboutMe extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.textView_phoneid);
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String author_phoneid = telephonyManager.getDeviceId();
-        textView.setText(author_phoneid);
-        System.out.println(author_phoneid);
+        textView.setText(telephonyManager.getDeviceId());
     }
 }
