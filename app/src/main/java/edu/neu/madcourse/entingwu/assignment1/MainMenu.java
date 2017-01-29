@@ -3,17 +3,20 @@ package edu.neu.madcourse.entingwu.assignment1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import edu.neu.madcourse.entingwu.R;
 
 public class MainMenu extends AppCompatActivity {
 
+    private static final String TAG = "MainMenu";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "MainMeun.onCreate() - create ");
         setContentView(R.layout.activity_main);
-
         Button quitButton = (Button) findViewById(R.id.button10);
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +35,7 @@ public class MainMenu extends AppCompatActivity {
     /** Test Runtime Error */
     public void generateError(View view) {
         char[] str = new char[1];
+        Log.e(TAG, "MainMeun.generateError() - generate error ");
         Button button = (Button) findViewById(R.id.button2);
         button.setText(str[2]);
     }
