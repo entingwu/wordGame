@@ -2,11 +2,14 @@ package edu.neu.madcourse.entingwu;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 public class TestDictionary extends AppCompatActivity {
     private static final String TAG = "TestDictionary";
     private static final String FILE_NAME = "data.json";
+    private static final String EMPTY_STRING = "";
     private EditText editText;
     private ListView list;
     private ArrayAdapter<String> adapter;
@@ -52,8 +56,8 @@ public class TestDictionary extends AppCompatActivity {
 
         // Deserialization
         trie = gson.fromJson(fileJson, Trie.class);
-        Log.i(TAG, "aaa" + String.valueOf(trie.search("compute")));
-        Log.i(TAG, "bbb" + String.valueOf(trie.search("a")));
+        Log.i(TAG, "Deserialize: " + String.valueOf(trie.search("compute")));
+        Log.i(TAG, "Deserialize" + String.valueOf(trie.search("a")));
 
 
         listItems = new ArrayList<String>();
@@ -62,13 +66,11 @@ public class TestDictionary extends AppCompatActivity {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (listItems.size() != 0) {
-                    Log.i(TAG, "onTextChanged " + listItems.get(listItems.size() - 1));
+                String currWord = s.toString();
+                if (trie.search(currWord)) {
+                    listItems.add(currWord);
+                    adapter.notifyDataSetChanged();
                 }
-                TextView textView = (TextView) findViewById(R.id.testText);
-                textView.setText(s);
-                listItems.add(s.toString());
-                adapter.notifyDataSetChanged();
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -79,12 +81,26 @@ public class TestDictionary extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_list_item_1,
-                listItems);
+                listItems) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.WHITE);
+                return view;
+            }
+        };
         list.setAdapter(adapter);
     }
 
+    /** Called when the user clicks the Clear button */
+    public void clearText(View view) {
+        editText.setText(EMPTY_STRING);
+        listItems.clear();
+    }
+
     private String readDeserialize(String fileName) {
-        StringBuffer sb = new StringBuffer("");
+        StringBuffer sb = new StringBuffer(EMPTY_STRING);
         try {
             InputStream is = openFileInput(fileName);
             InputStreamReader isr = new InputStreamReader(is);
