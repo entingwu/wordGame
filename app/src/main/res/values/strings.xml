@@ -5,19 +5,17 @@
     <string name="author_year">2nd year MS</string>
     <string name="author_program">Computer Science</string>
     <string name="title_about">About</string>
-    <string name="title_sudoku">Sudoku</string>
     <string name="profile_image">profile_image</string>
+    <string name="error_message">error</string>
 
     <string name="button_label_1">About</string>
     <string name="button_label_2">Generate Error</string>
-    <string name="button_label_3">Sudoku</string>
-    <string name="button_label_4">Dictionary</string>
-    <string name="button_label_5">Dabble</string>
-    <string name="button_label_6">Communication</string>
-    <string name="button_label_7">Two Player Dabble</string>
-    <string name="button_label_8">Trickest Part</string>
-    <string name="button_label_9">Final Project</string>
+    <string name="button_label_3">Dictionary</string>
     <string name="button_label_10">Quit</string>
 
-    <string name="error_message">error</string>
+    <string name="title_test_dictionary">TestDictionary</string>
+    <string name="edit_text">Enter a word</string>
+    <string name="button_label_clear">Clear</string>
+    <string name="button_label_return_menu">Menu</string>
+    <string name="button_label_acknowledgement">Acknowledgments</string>
 </resources>

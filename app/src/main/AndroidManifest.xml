@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".assignment1.MainMenu"
+            android:name=".MainMenu"
             android:label="@string/author_name">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +19,12 @@
         </activity>
 
         <activity
-            android:name=".assignment1.AboutMe"
+            android:name="AboutMe"
             android:label="@string/title_about" />
+
+        <activity
+            android:name="TestDictionary"
+            android:label="@string/title_test_dictionary" />
 
     </application>
 
