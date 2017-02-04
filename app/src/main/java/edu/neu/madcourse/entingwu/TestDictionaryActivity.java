@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,7 +35,7 @@ import java.util.regex.Pattern;
 
 public class TestDictionaryActivity extends AppCompatActivity {
     private static final String TAG = "TestDictionaryActivity";
-    private static final String FILE_NAME = "data.json";
+    private static final String FILE_NAME = "dong5.json";
     private static final String EMPTY_STRING = "";
     private AlertDialog mDialog;
     private EditText editText;
@@ -42,6 +43,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listItems;
     private Trie trie = new Trie();
+    private boolean isValid = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +51,26 @@ public class TestDictionaryActivity extends AppCompatActivity {
         Log.i(TAG, "TestDictionaryActivity.onCreate()");
         setContentView(R.layout.activity_test_dictionary);
 
-        // 1. Read File from Internal Storage, txt->Trie
-        readFromFile();
-
-        // 2. Serialization
+        File file = new File(getApplicationContext().getFilesDir(), FILE_NAME);
         Gson gson = new Gson();
-        String json = gson.toJson(trie);
+        if (!file.exists()) {
+            Log.i(TAG, String.format("%s does not exist.", FILE_NAME));
+            // 1. Read File from Internal Storage, txt->Trie
+            readFromFile();
 
-        // 3. Save File in Internal Storage
-        writeToFile(FILE_NAME, json);
+            // 2. Serialization
+            String json = gson.toJson(trie);
 
-        // 4. Deserialization: json->Trie
-        String fileJson = readDeserialize(FILE_NAME);
-        trie = gson.fromJson(fileJson, Trie.class);
+            // 3. Save File in Internal Storage
+            writeToFile(FILE_NAME, json);
+        } else {
+            // 4. Deserialization: json->Trie
+            Log.i(TAG, String.format("%s already exists.", FILE_NAME));
+            String fileJson = readDeserialize(FILE_NAME);
+            Log.i(TAG, String.valueOf(fileJson.length()));
+            trie = gson.fromJson(fileJson, Trie.class);
+        }
+
         Log.i(TAG, "Deserialize: " + String.valueOf(trie.search("compute")));
         Log.i(TAG, "Deserialize" + String.valueOf(trie.search("a")));
 
@@ -159,14 +168,20 @@ public class TestDictionaryActivity extends AppCompatActivity {
     private void readFromFile() {
         StringBuffer sb = new StringBuffer(EMPTY_STRING);
         try {
-            InputStream is = getResources().openRawResource(R.raw.wordlist_test);
+            InputStream is = getResources().openRawResource(R.raw.wordlist);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader bufferedReader = new BufferedReader(isr);
 
             String line = bufferedReader.readLine();
             while (line != null) {
-                trie.insert(line.trim());
-                sb.append(line);
+                String prefix = line.substring(0, 3);
+                switch(prefix) {
+                    case "com":
+                        trie.insert(line.trim());
+                        sb.append(line);
+                        break;
+                    default:
+                }
                 line = bufferedReader.readLine();
             }
             is.close();
