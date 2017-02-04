@@ -35,14 +35,17 @@ import java.util.regex.Pattern;
 
 public class TestDictionaryActivity extends AppCompatActivity {
     private static final String TAG = "TestDictionaryActivity";
-    private static final String FILE_NAME = "dong6.json";
+    private static final String FILE_NAME = "word1";
+    private static final String DIV = "_";
     private static final String EMPTY_STRING = "";
+    private static final Gson gson = new Gson();
+
     private AlertDialog mDialog;
     private EditText editText;
     private ListView list;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listItems;
-    private Trie trie = new Trie();
+    private Trie[][] tries = new Trie[26][26];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,28 +53,25 @@ public class TestDictionaryActivity extends AppCompatActivity {
         Log.i(TAG, "TestDictionaryActivity.onCreate()");
         setContentView(R.layout.activity_test_dictionary);
 
-        File file = new File(getApplicationContext().getFilesDir(), FILE_NAME);
-        Gson gson = new Gson();
+        String fileNameIni = FILE_NAME + DIV + "co";
+        File file = new File(getApplicationContext().getFilesDir(), fileNameIni);
         if (!file.exists()) {
-            Log.i(TAG, String.format("%s does not exist.", FILE_NAME));
-            // 1. Read File from Internal Storage, txt->Trie
+            Log.i(TAG, String.format("%s does not exist.", fileNameIni));
+            // 1. Read File from Internal Storage, txt->Trie[][]
             readFromFile();
 
-            // 2. Serialization
-            String json = gson.toJson(trie);
+            String[][] jsons = new String[26][26];
+            for (int i = 0; i < 26; i++) {
+                for (int j = 0; j < 26; j++) {
+                    // 2. Serialization
+                    jsons[i][j] = gson.toJson(tries[i][j]);
 
-            // 3. Save File in Internal Storage
-            writeToFile(FILE_NAME, json);
-        } else {
-            // 4. Deserialization: json->Trie
-            Log.i(TAG, String.format("%s already exists.", FILE_NAME));
-            String fileJson = readDeserialize(FILE_NAME);
-            Log.i(TAG, String.valueOf(fileJson.length()));
-            trie = gson.fromJson(fileJson, Trie.class);
+                    // 3. Save File in Internal Storage
+                    String fileName = FILE_NAME + DIV + (char)('a'+ i) + (char)('a'+ j);
+                    writeToFile(fileName, jsons[i][j]);
+                }
+            }
         }
-
-        Log.i(TAG, "Deserialize: " + String.valueOf(trie.search("compute")));
-        Log.i(TAG, "Deserialize" + String.valueOf(trie.search("a")));
 
         listItems = new ArrayList<String>();
         list = (ListView) findViewById(R.id.list);
@@ -85,12 +85,29 @@ public class TestDictionaryActivity extends AppCompatActivity {
                     Log.e(TAG, "Invalid Input." + currWord);
                     return;
                 }
-                if (trie.search(currWord)) {
-                    ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
-                    toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                    if (!listItems.contains(currWord)) {
-                        listItems.add(currWord);
-                        adapter.notifyDataSetChanged();
+
+                if (s.length() >= 2) {
+                    int c1 = s.charAt(0) - 'a';
+                    int c2 = s.charAt(1) - 'a';
+                    if (tries[c1][c2] == null) {
+                        // 4. Deserialization: json->Trie
+                        String fileName = FILE_NAME + DIV + s.charAt(0) + s.charAt(1);
+                        Log.i(TAG, String.format("%s already exists.", fileName));
+                        String fileJson = readDeserialize(fileName);
+                        Log.i(TAG, String.valueOf(fileJson.length()));
+
+                        tries[c1][c2] = gson.fromJson(fileJson, Trie.class);
+                        Log.i(TAG, "Deserialize: " + String.valueOf(tries[c1][c2].search("compute")));
+                        Log.i(TAG, "Deserialize" + String.valueOf(tries[c1][c2].search("a")));
+                    }
+
+                    if (tries[c1][c2].search(currWord)) {
+                        ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                        if (!listItems.contains(currWord)) {
+                            listItems.add(currWord);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }
@@ -157,9 +174,9 @@ public class TestDictionaryActivity extends AppCompatActivity {
             is.close();
             isr.close();
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("login activity", String.format("File not found: %s", e.toString()));
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("login activity", String.format("Can not read file:  %s", e.toString()));
         }
         return sb.toString();
     }
@@ -170,25 +187,27 @@ public class TestDictionaryActivity extends AppCompatActivity {
             InputStream is = getResources().openRawResource(R.raw.wordlist);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader bufferedReader = new BufferedReader(isr);
+            for (int i = 0; i < 26; i++) {
+                for (int j = 0; j < 26; j++) {
+                    tries[i][j] = new Trie();
+                }
+            }
 
             String line = bufferedReader.readLine();
+            int c1, c2;
             while (line != null) {
-                String prefix = line.substring(0, 3);
-                switch(prefix) {
-                    case "com":
-                        trie.insert(line.trim());
-                        sb.append(line);
-                        break;
-                    default:
-                }
+                c1 = line.charAt(0) - 'a';
+                c2 = line.charAt(1) - 'a';
+                tries[c1][c2].insert(line.trim());
+                sb.append(line);
                 line = bufferedReader.readLine();
             }
             is.close();
             isr.close();
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("login activity", String.format("File not found: %s", e.toString()));
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("login activity", String.format("Can not read file:  %s", e.toString()));
         }
     }
 
@@ -199,7 +218,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
             osr.write(json);
             osr.close();
         } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+            Log.e("Exception", String.format("File %s write failed: %s", filename, e.toString()));
         }
     }
 }
