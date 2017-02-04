@@ -6,11 +6,52 @@
     android:id="@+id/activity_test_dictionary"
     android:fillViewport="true"
     android:background="@color/colorPrimaryDark"
-    tools:context="edu.neu.madcourse.entingwu.TestDictionary">
+    tools:context="edu.neu.madcourse.entingwu.TestDictionaryActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/dividerVertical"
+            style="?android:buttonBarStyle">
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/button_label_acknowledgement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/colorPrimary"
+                android:onClick="displayAcknowledgement"
+                android:id="@+id/button_acknowledgement"/>
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/button_label_return_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/colorPrimary"
+                android:onClick="backToMenu"
+                android:id="@+id/button_return_menu"/>
+
+            <Button
+                android:text="@string/button_label_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/colorPrimary"
+                android:onClick="clearText"
+                android:id="@+id/button_clear"/>
+
+        </LinearLayout>
+
         <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -24,12 +65,6 @@
                 android:textColor="@color/colorPrimaryLight"
                 android:hint="@string/edit_text" />
 
-            <Button
-                android:text="@string/button_label_clear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="clearText"
-                android:id="@+id/button_clear" />
         </LinearLayout>
 
         <TextView

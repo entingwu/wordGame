@@ -11,11 +11,18 @@
     <string name="button_label_1">About</string>
     <string name="button_label_2">Generate Error</string>
     <string name="button_label_3">Dictionary</string>
-    <string name="button_label_10">Quit</string>
 
+    <!--Dictionary-->
     <string name="title_test_dictionary">TestDictionary</string>
     <string name="edit_text">Enter a word</string>
     <string name="button_label_clear">Clear</string>
-    <string name="button_label_return_menu">Menu</string>
+    <string name="button_label_return_menu">Return to Menu</string>
     <string name="button_label_acknowledgement">Acknowledgments</string>
+    <!--Alert Dialog-->
+    <string name="title_acknowledgement">Acknowledgements</string>
+    <string name="text_acknowledgement">
+        Learn from "Hello Android" Chapter 3 and 4, documents from https://developer.android.com/ and stackoverflow.
+    </string>
+    <string name="ok_label">OK</string>
+
 </resources>

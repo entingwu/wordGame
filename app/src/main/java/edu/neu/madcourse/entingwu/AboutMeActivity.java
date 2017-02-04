@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import edu.neu.madcourse.entingwu.R;
 
-public class AboutMe extends AppCompatActivity {
+public class AboutMeActivity extends AppCompatActivity {
 
     private static final int DEV_ID = 1;
-    private static final String TAG = "AboutMe";
+    private static final String TAG = "AboutMeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

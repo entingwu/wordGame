@@ -7,27 +7,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainMenu";
+    private static final String TAG = "MainMenuActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "MainMeun.onCreate() - create ");
         setContentView(R.layout.activity_main);
-        Button quitButton = (Button) findViewById(R.id.button10);
-        quitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     /** Called when the user clicks the About button */
     public void displayAbout(View view) {
-        Intent intent = new Intent(this, AboutMe.class);
+        Intent intent = new Intent(this, AboutMeActivity.class);
         startActivity(intent);
     }
 
@@ -41,7 +34,7 @@ public class MainMenu extends AppCompatActivity {
 
     /** Called when the user clicks the Dictionary button */
     public void testDictionary(View view) {
-        Intent intent = new Intent(this, TestDictionary.class);
+        Intent intent = new Intent(this, TestDictionaryActivity.class);
         startActivity(intent);
     }
 }

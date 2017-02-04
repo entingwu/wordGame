@@ -6,7 +6,7 @@
     android:id="@+id/activity_about_me"
     android:fillViewport="true"
     android:background="@color/colorPrimaryDark"
-    tools:context="edu.neu.madcourse.entingwu.MainMenu">
+    tools:context="edu.neu.madcourse.entingwu.MainMenuActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,10 +40,6 @@
                 android:onClick="testDictionary"
                 style="@style/ButtonDefaultStyle" />
 
-            <Button
-                android:text="@string/button_label_10"
-                android:id="@+id/button10"
-                style="@style/ButtonDefaultStyle"/>
         </LinearLayout>
 
     </RelativeLayout>

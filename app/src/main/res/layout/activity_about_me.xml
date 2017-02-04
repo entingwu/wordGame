@@ -7,7 +7,7 @@
     android:id="@+id/activity_about_me"
     android:fillViewport="true"
     android:background="@color/colorPrimaryDark"
-    tools:context="edu.neu.madcourse.entingwu.AboutMe">
+    tools:context="edu.neu.madcourse.entingwu.AboutMeActivity">
 
     <LinearLayout
         android:orientation="vertical"
