@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 
 public class TestDictionaryActivity extends AppCompatActivity {
     private static final String TAG = "TestDictionaryActivity";
-    private static final String FILE_NAME = "dong5.json";
+    private static final String FILE_NAME = "dong6.json";
     private static final String EMPTY_STRING = "";
     private AlertDialog mDialog;
     private EditText editText;
@@ -43,7 +43,6 @@ public class TestDictionaryActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listItems;
     private Trie trie = new Trie();
-    private boolean isValid = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

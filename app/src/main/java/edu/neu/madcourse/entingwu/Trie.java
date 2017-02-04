@@ -3,17 +3,14 @@ package edu.neu.madcourse.entingwu;
 
 import java.util.ArrayList;
 
+/** TrieNode */
 class N {
-    //TrieNode[] arr;
     ArrayList<N> a;
-    boolean e;
-    char ch;
-    // Initialize your data structure here.
+    int e;// isEnd, 0 false, 1 true
+    char c;// character
     public N() {
         a = new ArrayList<>();
-        //this.arr = new TrieNode[26];
     }
-
 }
 
 public class Trie {
@@ -29,31 +26,22 @@ public class Trie {
         N p = root;
         for(int i=0; i<word.length(); i++){
             char c = word.charAt(i);
-            //int index = c-'a';
-            boolean isHas = false;
+            int h = 0;// isHas, 0 is false, 1 is true
             for (N n : p.a) {
-                if (n.ch == c) {
+                if (n.c == c) {
                     p = n;
-                    isHas = true;
+                    h = 1;
                     break;
                 }
             }
-            if (!isHas) {
+            if (h == 0) {
                 N temp = new N();
-                temp.ch = c;
+                temp.c = c;
                 p.a.add(temp);
                 p = temp;
             }
-
-//            if(p.arr[index]==null){
-//                TrieNode temp = new TrieNode();
-//                p.arr[index]=temp;
-//                p = temp;
-//            }else{
-//                p=p.arr[index];
-//            }
         }
-        p.e=true;
+        p.e = 1;
     }
 
     // Returns if the word is in the trie.
@@ -62,10 +50,8 @@ public class Trie {
         if(p==null){
             return false;
         }else{
-            if(p.e)
-                return true;
+            if(p.e == 1) return true;
         }
-
         return false;
     }
 
@@ -73,7 +59,7 @@ public class Trie {
     // that starts with the given prefix.
     public boolean startsWith(String prefix) {
         N p = searchNode(prefix);
-        if(p==null){
+        if(p == null){
             return false;
         }else{
             return true;
@@ -82,24 +68,24 @@ public class Trie {
 
     public N searchNode(String s){
         N p = root;
-        for(int i=0; i<s.length(); i++){
+        for(int i = 0; i<s.length(); i++){
             char c= s.charAt(i);
-            boolean isHas = false;
+            int h = 0;// isHas, 0 is false, 1 is true
             for (N n : p.a) {
-                if (n.ch == c) {
+                if (n.c == c) {
                     p = n;
-                    isHas = true;
+                    h = 1;
                     break;
                 }
             }
-            if (!isHas) {
+            if (h == 0) {
                 return null;
             }
         }
 
-        if(p==root)
+        if(p==root) {
             return null;
-
+        }
         return p;
     }
 }
