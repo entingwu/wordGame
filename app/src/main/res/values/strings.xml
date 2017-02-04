@@ -17,7 +17,7 @@
     <string name="edit_text">Enter a word</string>
     <string name="button_label_clear">Clear</string>
     <string name="button_label_return_menu">Return to Menu</string>
-    <string name="button_label_acknowledgement">Acknowledgments</string>
+    <string name="button_label_acknowledgement">Acknowledgment</string>
     <!--Alert Dialog-->
     <string name="title_acknowledgement">Acknowledgements</string>
     <string name="text_acknowledgement">

@@ -19,7 +19,6 @@
             android:background="?android:attr/dividerVertical"
             style="?android:buttonBarStyle">
             <Button
-                style="?android:attr/borderlessButtonStyle"
                 android:text="@string/button_label_acknowledgement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +29,6 @@
                 android:id="@+id/button_acknowledgement"/>
 
             <Button
-                style="?android:attr/borderlessButtonStyle"
                 android:text="@string/button_label_return_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

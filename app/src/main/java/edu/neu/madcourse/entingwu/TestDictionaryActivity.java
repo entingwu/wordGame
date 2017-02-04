@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -72,12 +74,16 @@ public class TestDictionaryActivity extends AppCompatActivity {
                 String currWord = s.toString();
                 Pattern p = Pattern.compile("[^a-zA-Z]");
                 if (p.matcher(currWord).find()) {
-                    if (trie.search(currWord)) {
+                    Log.e(TAG, "Invalid Input." + currWord);
+                    return;
+                }
+                if (trie.search(currWord)) {
+                    ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                    toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                    if (!listItems.contains(currWord)) {
                         listItems.add(currWord);
                         adapter.notifyDataSetChanged();
                     }
-                } else {
-                    Log.e(TAG, "Invalid Input." + currWord);
                 }
             }
             @Override
