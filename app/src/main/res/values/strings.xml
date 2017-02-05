@@ -21,9 +21,8 @@
     <!--Alert Dialog-->
     <string name="title_acknowledgement">Acknowledgements</string>
     <string name="text_acknowledgement">
-        Learn From
-        &#8226; "Hello Android" Chapter 3 and 4.
-        &#8226; Documents from https://developer.android.com/
+        &#8226; "Hello Android" Chapter 3 and 4.\n
+        &#8226; https://developer.android.com/\n
         &#8226; http://stackoverflow.com/
     </string>
     <string name="ok_label">OK</string>

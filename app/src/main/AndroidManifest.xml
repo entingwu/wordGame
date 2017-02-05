@@ -24,6 +24,7 @@
 
         <activity
             android:name=".TestDictionaryActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_test_dictionary" />
 
     </application>
