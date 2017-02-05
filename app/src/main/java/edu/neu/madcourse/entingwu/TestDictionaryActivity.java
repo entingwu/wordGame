@@ -135,6 +135,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
     public void clearText(View view) {
         editText.setText(EMPTY_STRING);
         listItems.clear();
+        adapter.notifyDataSetChanged();
     }
 
     private String readDeserialize(String fileName) {
