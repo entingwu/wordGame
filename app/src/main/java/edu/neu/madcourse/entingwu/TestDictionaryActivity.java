@@ -1,6 +1,5 @@
 package edu.neu.madcourse.entingwu;
 
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +33,7 @@ import java.util.regex.Pattern;
 
 public class TestDictionaryActivity extends AppCompatActivity {
     private static final String TAG = "TestDictionaryActivity";
-    private static final String FILE_NAME = "word1";
+    private static final String FILE_NAME_PREFIX = "dict";
     private static final String DIV = "_";
     private static final String EMPTY_STRING = "";
     private static final Gson gson = new Gson();
@@ -52,26 +51,6 @@ public class TestDictionaryActivity extends AppCompatActivity {
         Log.i(TAG, "TestDictionaryActivity.onCreate()");
         setContentView(R.layout.activity_test_dictionary);
 
-        String fileNameIni = FILE_NAME + DIV + "co";
-        File file = new File(getApplicationContext().getFilesDir(), fileNameIni);
-        if (!file.exists()) {
-            Log.i(TAG, String.format("%s does not exist.", fileNameIni));
-            // 1. Read File from Internal Storage, txt->Trie[][]
-            readFromFile();
-
-            String[][] jsons = new String[26][26];
-            for (int i = 0; i < 26; i++) {
-                for (int j = 0; j < 26; j++) {
-                    // 2. Serialization
-                    jsons[i][j] = gson.toJson(tries[i][j]);
-
-                    // 3. Save File in Internal Storage
-                    String fileName = FILE_NAME + DIV + (char)('a'+ i) + (char)('a'+ j);
-                    writeToFile(fileName, jsons[i][j]);
-                }
-            }
-        }
-
         listItems = new ArrayList<String>();
         list = (ListView) findViewById(R.id.list);
         editText = (EditText) findViewById(R.id.editText);
@@ -84,20 +63,19 @@ public class TestDictionaryActivity extends AppCompatActivity {
                     Log.e(TAG, "Invalid Input." + currWord);
                     return;
                 }
-
                 if (s.length() >= 2) {
                     int c1 = s.charAt(0) - 'a';
                     int c2 = s.charAt(1) - 'a';
                     if (tries[c1][c2] == null) {
-                        // 4. Deserialization: json->Trie
-                        String fileName = FILE_NAME + DIV + s.charAt(0) + s.charAt(1);
+                        // Deserialization: json->Trie
+                        String fileName = FILE_NAME_PREFIX + DIV + s.charAt(0) + s.charAt(1);
                         Log.i(TAG, String.format("%s already exists.", fileName));
+                        // Build a particular Trie
                         String fileJson = readDeserialize(fileName);
                         Log.i(TAG, String.valueOf(fileJson.length()));
 
                         tries[c1][c2] = gson.fromJson(fileJson, Trie.class);
-                        Log.i(TAG, "Deserialize: " + String.valueOf(tries[c1][c2].search("compute")));
-                        Log.i(TAG, "Deserialize" + String.valueOf(tries[c1][c2].search("a")));
+                        Log.d(TAG, "Deserialize: " + String.valueOf(tries[c1][c2].search("compute")));
                     }
 
                     if (tries[c1][c2].search(currWord)) {
@@ -158,66 +136,26 @@ public class TestDictionaryActivity extends AppCompatActivity {
     }
 
     private String readDeserialize(String fileName) {
-        StringBuffer sb = new StringBuffer(EMPTY_STRING);
+        StringBuffer sb = new StringBuffer();
         try {
-            InputStream is = openFileInput(fileName);
+            // Read files from ./assets
+            InputStream is = getAssets().open(fileName);
             InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader bufferedReader = new BufferedReader(isr);
+            BufferedReader br = new BufferedReader(isr);
 
-            String line = bufferedReader.readLine();
+            String line = br.readLine();
             while (line != null) {
                 sb.append(line);
-                Log.i(TAG, line);
-                line = bufferedReader.readLine();
+                line = br.readLine();
             }
-            is.close();
+            br.close();
             isr.close();
+            is.close();
         } catch (FileNotFoundException e) {
             Log.e("login activity", String.format("File not found: %s", e.toString()));
         } catch (IOException e) {
             Log.e("login activity", String.format("Can not read file:  %s", e.toString()));
         }
         return sb.toString();
-    }
-
-    private void readFromFile() {
-        StringBuffer sb = new StringBuffer(EMPTY_STRING);
-        try {
-            InputStream is = getResources().openRawResource(R.raw.wordlist);
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            for (int i = 0; i < 26; i++) {
-                for (int j = 0; j < 26; j++) {
-                    tries[i][j] = new Trie();
-                }
-            }
-
-            String line = bufferedReader.readLine();
-            int c1, c2;
-            while (line != null) {
-                c1 = line.charAt(0) - 'a';
-                c2 = line.charAt(1) - 'a';
-                tries[c1][c2].insert(line.trim());
-                sb.append(line);
-                line = bufferedReader.readLine();
-            }
-            is.close();
-            isr.close();
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", String.format("File not found: %s", e.toString()));
-        } catch (IOException e) {
-            Log.e("login activity", String.format("Can not read file:  %s", e.toString()));
-        }
-    }
-
-    private void writeToFile(String filename, String json) {
-        try {
-            FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
-            OutputStreamWriter osr = new OutputStreamWriter(fos);
-            osr.write(json);
-            osr.close();
-        } catch (IOException e) {
-            Log.e("Exception", String.format("File %s write failed: %s", filename, e.toString()));
-        }
     }
 }
