@@ -9,12 +9,12 @@ import java.io.IOException;
 
 public class Serialization {
 
-    private static final String FILE_NAME_PREFIX = "dic";
+    private static final String FILE_NAME_PREFIX = "dict";
     private static final String DIV = "_";
     private static final String READ_FILE =
             "/Users/entingwu/AndroidStudioProjects/resources/wordlist.txt";
     private static final String WRITE_PATH_PREFIX =
-            "/Users/entingwu/AndroidStudioProjects/NUMAD17S-EntingWu/app/src/main/assets/";
+            "/Users/entingwu/AndroidStudioProjects/NUMAD17S-EntingWu/app/src/main/assets/dictionary/";
     private static final Gson gson = new Gson();
     private static Trie[][][] tries = new Trie[26][26][26];
 
@@ -37,7 +37,7 @@ public class Serialization {
                     // 2. Serialization, Trie[][] -> String[][]
                     jsons[i][j][k] = gson.toJson(tries[i][j][k]);
 
-                    // 3. Save File in assets
+                    // 3. Save File in ./assets
                     String fileName = WRITE_PATH_PREFIX + FILE_NAME_PREFIX + DIV +
                             (char)('a'+ i) + (char)('a'+ j) + (char)('a'+ k);
                     writeFile(jsons[i][j][k], fileName);
@@ -46,7 +46,8 @@ public class Serialization {
         }
     }
 
-    /** Read txt file from local file system */
+    /** Read txt file from local file system.
+     *  Insert words to the corresponding tries. */
     private static void readFile(String fileName) {
         FileReader fr = null;
         BufferedReader br = null;
@@ -79,6 +80,7 @@ public class Serialization {
         }
     }
 
+    /** Write the json String to the local file */
     private static void writeFile(String json, String fileName) {
         FileWriter fw = null;
         BufferedWriter bw = null;

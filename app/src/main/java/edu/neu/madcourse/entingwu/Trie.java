@@ -13,6 +13,7 @@ class N {
     }
 }
 
+/** Trie */
 public class Trie {
 
     private N root;
@@ -24,7 +25,7 @@ public class Trie {
     // Inserts a word into the trie.
     public void insert(String word) {
         N p = root;
-        for(int i=0; i<word.length(); i++){
+        for(int i = 0; i < word.length(); i++){
             char c = word.charAt(i);
             int h = 0;// isHas, 0 is false, 1 is true
             for (N n : p.a) {
@@ -47,7 +48,7 @@ public class Trie {
     // Returns if the word is in the trie.
     public boolean search(String word) {
         N p = searchNode(word);
-        if(p==null){
+        if(p == null){
             return false;
         }else{
             if(p.e == 1) return true;
@@ -68,7 +69,7 @@ public class Trie {
 
     public N searchNode(String s){
         N p = root;
-        for(int i = 0; i<s.length(); i++){
+        for(int i = 0; i < s.length(); i++){
             char c= s.charAt(i);
             int h = 0;// isHas, 0 is false, 1 is true
             for (N n : p.a) {
@@ -83,7 +84,7 @@ public class Trie {
             }
         }
 
-        if(p==root) {
+        if(p == root) {
             return null;
         }
         return p;

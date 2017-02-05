@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 public class TestDictionaryActivity extends AppCompatActivity {
     private static final String TAG = "TestDictionaryActivity";
-    private static final String FILE_NAME_PREFIX = "dic";
+    private static final String FILE_NAME_PREFIX = "dict";
     private static final String DIV = "_";
     private static final String EMPTY_STRING = "";
     private static final Gson gson = new Gson();
@@ -72,12 +72,11 @@ public class TestDictionaryActivity extends AppCompatActivity {
                         // Deserialization: json->Trie
                         String fileName = FILE_NAME_PREFIX + DIV + ch1 + ch2 + ch3;
                         Log.i(TAG, String.format("%s already exists.", fileName));
+
                         // Build a particular Trie
                         String fileJson = readDeserialize(fileName);
-                        Log.i(TAG, String.valueOf(fileJson.length()));
-
+                        Log.i(TAG, String.format("JsonFile size is %d", fileJson.length()));
                         tries[c1][c2][c3] = gson.fromJson(fileJson, Trie.class);
-                        Log.d(TAG, "Deserialize: " + String.valueOf(tries[c1][c2][c3].search("compute")));
                     }
 
                     if (tries[c1][c2][c3].search(currWord)) {
@@ -111,7 +110,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-    /** Called when the user clicks the Back to Menu button */
+    /** Display the acknowledgement as an alertDialog */
     public void displayAcknowledgement(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(TestDictionaryActivity.this);
         builder.setTitle(R.string.title_acknowledgement);
@@ -125,23 +124,23 @@ public class TestDictionaryActivity extends AppCompatActivity {
         mDialog = builder.show();
     }
 
-    /** Called when the user clicks the Back to Menu button */
-    public void backToMenu(View view) {
+    /** Return to app home screen */
+    public void returnToMenu(View view) {
         Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 
-    /** Called when the user clicks the Clear button */
+    /** Clear button removes all letters from the EditText and ListView */
     public void clearText(View view) {
         editText.setText(EMPTY_STRING);
         listItems.clear();
         adapter.notifyDataSetChanged();
     }
 
+    /** Read the json String from the file in ./assets */
     private String readDeserialize(String fileName) {
         StringBuffer sb = new StringBuffer();
         try {
-            // Read files from ./assets
             InputStream is = getAssets().open(fileName);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
@@ -160,5 +159,10 @@ public class TestDictionaryActivity extends AppCompatActivity {
             Log.e("login activity", String.format("Can not read file:  %s", e.toString()));
         }
         return sb.toString();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

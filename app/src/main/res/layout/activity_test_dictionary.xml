@@ -35,7 +35,7 @@
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"
                 android:textColor="@color/colorPrimary"
-                android:onClick="backToMenu"
+                android:onClick="returnToMenu"
                 android:id="@+id/button_return_menu"/>
 
             <Button

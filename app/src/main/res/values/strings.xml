@@ -13,7 +13,7 @@
     <string name="button_label_3">Dictionary</string>
 
     <!--Dictionary-->
-    <string name="title_test_dictionary">TestDictionary</string>
+    <string name="title_test_dictionary">Test Dictionary</string>
     <string name="edit_text">Enter a word</string>
     <string name="button_label_clear">Clear</string>
     <string name="button_label_return_menu">Menu</string>
@@ -21,7 +21,10 @@
     <!--Alert Dialog-->
     <string name="title_acknowledgement">Acknowledgements</string>
     <string name="text_acknowledgement">
-        Learn from "Hello Android" Chapter 3 and 4, documents from https://developer.android.com/ and stackoverflow.
+        Learn From
+        &#8226; "Hello Android" Chapter 3 and 4.
+        &#8226; Documents from https://developer.android.com/
+        &#8226; http://stackoverflow.com/
     </string>
     <string name="ok_label">OK</string>
 
