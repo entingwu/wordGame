@@ -9,34 +9,39 @@ import java.io.IOException;
 
 public class Serialization {
 
-    private static final String FILE_NAME_PREFIX = "dict";
+    private static final String FILE_NAME_PREFIX = "dic";
     private static final String DIV = "_";
     private static final String READ_FILE =
             "/Users/entingwu/AndroidStudioProjects/resources/wordlist.txt";
     private static final String WRITE_PATH_PREFIX =
             "/Users/entingwu/AndroidStudioProjects/NUMAD17S-EntingWu/app/src/main/assets/";
     private static final Gson gson = new Gson();
-    private static Trie[][] tries = new Trie[26][26];
+    private static Trie[][][] tries = new Trie[26][26][26];
 
     public static void main(String[] args) {
         // 0. Initialize Trie[][]
         for (int i = 0; i < 26; i++) {
             for (int j = 0; j < 26; j++) {
-                tries[i][j] = new Trie();
+                for (int k = 0; k < 26; k++) {
+                    tries[i][j][k] = new Trie();
+                }
             }
         }
         // 1. Read File from Internal Storage, txt -> Trie[][]
         readFile(READ_FILE);
 
-        String[][] jsons = new String[26][26];
+        String[][][] jsons = new String[26][26][26];
         for (int i = 0; i < 26; i++) {
             for (int j = 0; j < 26; j++) {
-                // 2. Serialization, Trie[][] -> String[][]
-                jsons[i][j] = gson.toJson(tries[i][j]);
+                for (int k = 0; k < 26; k++) {
+                    // 2. Serialization, Trie[][] -> String[][]
+                    jsons[i][j][k] = gson.toJson(tries[i][j][k]);
 
-                // 3. Save File in assets
-                String fileName = WRITE_PATH_PREFIX + FILE_NAME_PREFIX + DIV + (char)('a'+ i) + (char)('a'+ j);
-                writeFile(jsons[i][j], fileName);
+                    // 3. Save File in assets
+                    String fileName = WRITE_PATH_PREFIX + FILE_NAME_PREFIX + DIV +
+                            (char)('a'+ i) + (char)('a'+ j) + (char)('a'+ k);
+                    writeFile(jsons[i][j][k], fileName);
+                }
             }
         }
     }
@@ -49,12 +54,13 @@ public class Serialization {
             fr = new FileReader(fileName);
             br = new BufferedReader(fr);
             String line = br.readLine();
-            int c1, c2;// word length >= 3
+            int c1, c2, c3;// word length >= 3
             while (line != null) {
                 c1 = line.charAt(0) - 'a';
                 c2 = line.charAt(1) - 'a';
+                c3 = line.charAt(2) - 'a';
                 System.out.println(line);
-                tries[c1][c2].insert(line.trim());
+                tries[c1][c2][c3].insert(line.trim());
                 line = br.readLine();
             }
         } catch (IOException e) {

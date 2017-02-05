@@ -1,6 +1,6 @@
 package edu.neu.madcourse.entingwu;
 
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,19 +21,16 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class TestDictionaryActivity extends AppCompatActivity {
     private static final String TAG = "TestDictionaryActivity";
-    private static final String FILE_NAME_PREFIX = "dict";
+    private static final String FILE_NAME_PREFIX = "dic";
     private static final String DIV = "_";
     private static final String EMPTY_STRING = "";
     private static final Gson gson = new Gson();
@@ -43,7 +40,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
     private ListView list;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listItems;
-    private Trie[][] tries = new Trie[26][26];
+    private Trie[][][] tries = new Trie[26][26][26];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +60,27 @@ public class TestDictionaryActivity extends AppCompatActivity {
                     Log.e(TAG, "Invalid Input." + currWord);
                     return;
                 }
-                if (s.length() >= 2) {
-                    int c1 = s.charAt(0) - 'a';
-                    int c2 = s.charAt(1) - 'a';
-                    if (tries[c1][c2] == null) {
+
+                if (s.length() >= 3) {
+                    char ch1 = s.charAt(0);
+                    char ch2 = s.charAt(1);
+                    char ch3 = s.charAt(2);
+                    int c1 = ch1 - 'a';
+                    int c2 = ch2 - 'a';
+                    int c3 = ch3 - 'a';
+                    if (tries[c1][c2][c3] == null) {
                         // Deserialization: json->Trie
-                        String fileName = FILE_NAME_PREFIX + DIV + s.charAt(0) + s.charAt(1);
+                        String fileName = FILE_NAME_PREFIX + DIV + ch1 + ch2 + ch3;
                         Log.i(TAG, String.format("%s already exists.", fileName));
                         // Build a particular Trie
                         String fileJson = readDeserialize(fileName);
                         Log.i(TAG, String.valueOf(fileJson.length()));
 
-                        tries[c1][c2] = gson.fromJson(fileJson, Trie.class);
-                        Log.d(TAG, "Deserialize: " + String.valueOf(tries[c1][c2].search("compute")));
+                        tries[c1][c2][c3] = gson.fromJson(fileJson, Trie.class);
+                        Log.d(TAG, "Deserialize: " + String.valueOf(tries[c1][c2][c3].search("compute")));
                     }
 
-                    if (tries[c1][c2].search(currWord)) {
+                    if (tries[c1][c2][c3].search(currWord)) {
                         ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
                         toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                         if (!listItems.contains(currWord)) {
