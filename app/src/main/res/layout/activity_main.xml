@@ -40,6 +40,18 @@
                 android:onClick="testDictionary"
                 style="@style/ButtonDefaultStyle" />
 
+            <Button
+                android:text="@string/button_label_4"
+                android:id="@+id/button4"
+                android:onClick="launchTicTacToe"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_5"
+                android:id="@+id/button5"
+                android:onClick="wordGame"
+                style="@style/ButtonDefaultStyle" />
+
         </LinearLayout>
 
     </RelativeLayout>

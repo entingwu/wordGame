@@ -37,4 +37,15 @@ public class MainMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TestDictionaryActivity.class);
         startActivity(intent);
     }
+
+    /** Called when the user clicks the Word Game button */
+    public void wordGame(View view) {
+        Intent intent = new Intent(this, WordGameActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchTicTacToe(View view) {
+        Intent intent = new Intent(this, edu.neu.madcourse.entingwu.tictactoe.MainActivity.class);
+        startActivity(intent);
+    }
 }
