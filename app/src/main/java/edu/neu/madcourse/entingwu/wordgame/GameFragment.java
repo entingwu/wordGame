@@ -113,7 +113,7 @@ public class GameFragment extends Fragment {
     private void setTile(int fLarge, int fSmall){
         Tile smallTile = mSmallTiles[fLarge][fSmall];
         smallTile.status = 1;
-        smallTile.level = 2;
+        smallTile.level = 100;
 
     }
 //
