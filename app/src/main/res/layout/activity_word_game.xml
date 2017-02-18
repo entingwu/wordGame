@@ -6,12 +6,20 @@
     android:id="@+id/activity_word_game"
     android:fillViewport="true"
     android:background="@color/colorPrimaryDark"
-    tools:context="edu.neu.madcourse.entingwu.WordGameActivity">
+    tools:context="edu.neu.madcourse.entingwu.wordgame.MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--</LinearLayout>-->
+
+    <fragment
+        android:id="@+id/wg_main_fragment"
+        class="edu.neu.madcourse.entingwu.wordgame.MainFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:layout="@layout/fragment_word_game_main"/>
 
 </ScrollView>

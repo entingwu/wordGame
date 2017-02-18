@@ -27,7 +27,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_test_dictionary" />
         <activity
-            android:name=".WordGameActivity"
+            android:name=".wordgame.MainActivity"
             android:label="@string/title_word_game"/>
 
         <activity
@@ -38,8 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name="edu.neu.madcourse.entingwu.tictactoe.GameActivity">
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.entingwu.wordgame.GameActivity">
         </activity>
     </application>
 

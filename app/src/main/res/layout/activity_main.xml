@@ -25,7 +25,7 @@
             <Button
                 android:text="@string/button_label_1"
                 android:id="@+id/button1"
-                android:onClick="displayAbout"
+                android:onClick="displayAbout (MainMenuActivity)"
                 style="@style/ButtonDefaultStyle" />
 
             <Button

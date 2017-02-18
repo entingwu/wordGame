@@ -19,6 +19,8 @@
       android:scaleType="centerCrop"
       android:src="@drawable/sandy_beach"/>
 
+   <include layout="@layout/thinking"/>
+
    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -41,7 +43,5 @@
          tools:layout="@layout/fragment_control"/>
 
    </LinearLayout>
-
-   <include layout="@layout/thinking"/>
 
 </FrameLayout>

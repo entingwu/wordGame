@@ -40,7 +40,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     /** Called when the user clicks the Word Game button */
     public void wordGame(View view) {
-        Intent intent = new Intent(this, WordGameActivity.class);
+        Intent intent = new Intent(this, edu.neu.madcourse.entingwu.wordgame.MainActivity.class);
         startActivity(intent);
     }
 
