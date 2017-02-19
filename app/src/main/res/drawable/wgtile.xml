@@ -108,4 +108,8 @@
         android:drawable="@drawable/z"
         android:maxLevel="25" />
 
+    <item
+        android:drawable="@drawable/tile_blue"
+        android:maxLevel="26" />
+
 </level-list>

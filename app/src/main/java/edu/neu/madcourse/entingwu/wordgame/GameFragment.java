@@ -13,10 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+
 import edu.neu.madcourse.entingwu.R;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GameFragment extends Fragment {
@@ -37,6 +42,8 @@ public class GameFragment extends Fragment {
     private float mVolume = 1f;
     private int mLastLarge;
     private int mLastSmall;
+    HashSet<String> dictionary = new HashSet<>();
+    int score = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,15 @@ public class GameFragment extends Fragment {
         mSoundO = mSoundPool.load(getActivity(), R.raw.sergenious_moveo, 1);
         mSoundMiss = mSoundPool.load(getActivity(), R.raw.erkanozan_miss, 1);
         mSoundRewind = mSoundPool.load(getActivity(), R.raw.joanne_rewind, 1);
+
+        dictionary.add("abc");
+        dictionary.add("abcdef");
+        dictionary.add("def");
+        dictionary.add("fgh");
+        dictionary.add("agj");
+
+        dictionary.add("abcdefghi");
+
     }
 
     private void clearAvailable() {
@@ -80,23 +96,70 @@ public class GameFragment extends Fragment {
             View outer = rootView.findViewById(mLargeIds[large]);
             mLargeTiles[large].setView(outer);
 
+
+
             for (int small = 0; small < 9; small++) {
                 ImageButton inner = (ImageButton) outer.findViewById
                         (mSmallIds[small]);
                 final int fLarge = large;
                 final int fSmall = small;
+                final Tile largeTile = mLargeTiles[large];
                 final Tile smallTile = mSmallTiles[large][small];
                 smallTile.setView(inner);
                 // ...
                 inner.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (largeTile.locked) {
+                            // if locked nothing to do;
+                            return;
+                        }
                         smallTile.animate();
                         // ...
                         //if (isAvailable(smallTile)) {
                            // ((GameActivity)getActivity()).startThinking();
-                            mSoundPool.play(mSoundX, mVolume, mVolume, 1, 0, 1f);
-                        setTile(fLarge, fSmall);
+                        mSoundPool.play(mSoundX, mVolume, mVolume, 1, 0, 1f);
+                        int currentOne = fSmall;
+
+                        if (smallTile.choosen) {
+                            // submit the word;
+                            Log.i("the choosen word is: ", largeTile.choosenWord);
+
+                            if ( ((GameActivity)getActivity()).isInDict(largeTile.choosenWord)) {
+                                // if the the choosen word exists,
+                                // 1. play a sound,
+                                // 2. change the level of the choosen word.
+                                // 3. clear the unchoosen word.
+                                // 4. submit the word to the game board, earn points.
+                                // 5. Lock the large board.
+                                mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
+                                largeTile.finishIt();
+                                ((GameActivity)getActivity()).addWord(largeTile.choosenWord);
+                                score += largeTile.choosenWord.length() * 10;
+                                ((GameActivity)getActivity()).updateScore(score);
+                            } else {
+                                largeTile.clearLargeBoard();
+                            }
+                        } else {
+                            // continue editing...
+                            if (largeTile.isChoosable(currentOne)) {
+                                largeTile.choosenWord += String.valueOf(smallTile.character);
+                                largeTile.lastPosition = currentOne;
+                                smallTile.choosen = true;
+                                if (((GameActivity)getActivity()).isInDict(largeTile.choosenWord)) {
+                                    // match
+                                    mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
+                                    largeTile.painMatch(3);
+                                } else {
+                                    largeTile.painMatch(2);
+                                }
+
+                                //setTile(fLarge, fSmall);
+                            } else {
+                                // clear the board:
+                                largeTile.clearLargeBoard();
+                            }
+                        }
                         //makeMove(fLarge, fSmall);
                         //think();
                         updateAllTiles();
@@ -112,9 +175,9 @@ public class GameFragment extends Fragment {
 
     private void setTile(int fLarge, int fSmall){
         Tile smallTile = mSmallTiles[fLarge][fSmall];
-        smallTile.status = 1;
-        smallTile.level = 100;
-
+        smallTile.choosen = true;
+        //smallTile.status = 1;
+        smallTile.level = 2;
     }
 //
 //    private void think() {
@@ -210,9 +273,21 @@ public class GameFragment extends Fragment {
         // Create all the tiles
         for (int large = 0; large < 9; large++) {
             mLargeTiles[large] = new Tile(this);
+            List<Integer> allocation = RandomPathGenerator.randomAllocation();
+            String ddd = "";
+            for (Integer d : allocation) {
+                ddd += String.valueOf(d);
+            }
+            Log.i("ni men na ", ddd);
             for (int small = 0; small < 9; small++) {
                 mSmallTiles[large][small] = new Tile(this);
             }
+            // assign characters to tiles
+            for (int i = 0; i < 9; ++i) {
+                String word = ((GameActivity)getActivity()).getRandomWord();
+                mSmallTiles[large][allocation.get(i)].character = word.charAt(i);
+            }
+
             mLargeTiles[large].setSubTiles(mSmallTiles[large]);
         }
         mEntireBoard.setSubTiles(mLargeTiles);

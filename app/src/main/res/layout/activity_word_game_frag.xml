@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".wordgame.MainActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/sandy_beach"/>
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/starnight"/>-->
 
     <!--<include layout="@layout/thinking"/>-->
 
@@ -20,15 +20,41 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <!--<ListView-->
+            <!--android:id="@+id/wordsd"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="top"/>-->
+
+
         <fragment
             android:id="@+id/fragment_wordgame"
             class="edu.neu.madcourse.entingwu.wordgame.GameFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="top"
             tools:layout="@layout/fragment_wordgame"/>
+
         <!-- Control fragment goes here... -->
 
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/matchedWord"
+        android:layout_width="121dp"
+        android:background="@color/gray_color"
+        android:alpha="0.4"
+        android:gravity="top"
+        android:layout_height="180dp" />
+
+    <TextView
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/score"
+        android:gravity="center"
+        tools:text="Score: 0"
+        android:textAppearance="@style/TextDefaultStyle" />
+
 
 </FrameLayout>
