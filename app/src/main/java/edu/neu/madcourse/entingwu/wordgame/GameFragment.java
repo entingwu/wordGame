@@ -13,15 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
-
 import edu.neu.madcourse.entingwu.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class GameFragment extends Fragment {
@@ -35,15 +33,13 @@ public class GameFragment extends Fragment {
     private Tile mEntireBoard = new Tile(this);
     private Tile mLargeTiles[] = new Tile[9];
     private Tile mSmallTiles[][] = new Tile[9][9];
-    //private Tile.Owner mPlayer = Tile.Owner.X;
-    private Set<Tile> mAvailable = new HashSet<Tile>();
     private int mSoundX, mSoundO, mSoundMiss, mSoundRewind;
     private SoundPool mSoundPool;
     private float mVolume = 1f;
     private int mLastLarge;
     private int mLastSmall;
-    HashSet<String> dictionary = new HashSet<>();
     int score = 0;
+    boolean isPhaseTwo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,23 +54,6 @@ public class GameFragment extends Fragment {
         mSoundMiss = mSoundPool.load(getActivity(), R.raw.erkanozan_miss, 1);
         mSoundRewind = mSoundPool.load(getActivity(), R.raw.joanne_rewind, 1);
 
-        dictionary.add("abc");
-        dictionary.add("abcdef");
-        dictionary.add("def");
-        dictionary.add("fgh");
-        dictionary.add("agj");
-
-        dictionary.add("abcdefghi");
-
-    }
-
-    private void clearAvailable() {
-        mAvailable.clear();
-    }
-
-    private void addAvailable(Tile tile) {
-        tile.animate();
-        mAvailable.add(tile);
     }
 
     public void playTimerSound() {
@@ -86,7 +65,6 @@ public class GameFragment extends Fragment {
             t.setLocked(true);
             for (Tile sub : t.getSubTiles()) {
                 sub.setLevel(26);
-                //sub.character = '-';
             }
         }
         updateAllTiles();
@@ -98,16 +76,11 @@ public class GameFragment extends Fragment {
             // reset all levels;
             for (Tile sub : t.getSubTiles()) {
                 sub.recoverLevel();
-                //sub.character = '-';
             }
         }
         updateAllTiles();
     }
 
-    public boolean isAvailable(Tile tile) {
-        return mAvailable.contains(tile);
-    }
-//
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -149,7 +122,6 @@ public class GameFragment extends Fragment {
                         if (smallTile.choosen) {
                             // submit the word;
                             Log.i("the choosen word is: ", largeTile.choosenWord);
-
                             if ( ((GameActivity)getActivity()).isInDict(largeTile.choosenWord)) {
                                 // if the the choosen word exists,
                                 // 1. play a sound,
@@ -160,7 +132,7 @@ public class GameFragment extends Fragment {
                                 mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
                                 largeTile.finishIt();
                                 ((GameActivity)getActivity()).addWord(largeTile.choosenWord);
-                                score += largeTile.choosenWord.length() * 10;
+                                score += largeTile.choosenWord.length() * (isPhaseTwo ? 30 : 10);
                                 ((GameActivity)getActivity()).updateScore(score);
                             } else {
                                 largeTile.clearLargeBoard();
@@ -189,12 +161,7 @@ public class GameFragment extends Fragment {
                                 largeTile.clearLargeBoard();
                             }
                         }
-                        //makeMove(fLarge, fSmall);
-                        //think();
                         updateAllTiles();
-                        //} else {
-                        //mSoundPool.play(mSoundMss, mVolume, mVolume, 1, 0, 1f);
-                        //}
                     }
                 });
                 // ...
@@ -202,100 +169,6 @@ public class GameFragment extends Fragment {
         }
     }
 
-//    private void setTile(int fLarge, int fSmall){
-//        Tile smallTile = mSmallTiles[fLarge][fSmall];
-//        smallTile.choosen = true;
-//        //smallTile.status = 1;
-//        smallTile.level = 2;
-//    }
-//
-//    private void think() {
-//        mHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (getActivity() == null) return;
-//                if (mEntireBoard.getOwner() == Tile.Owner.NEITHER) {
-//                    int move[] = new int[2];
-//                    pickMove(move);
-//                    if (move[0] != -1 && move[1] != -1) {
-//                        switchTurns();
-//                        mSoundPool.play(mSoundO, mVolume, mVolume,
-//                                1, 0, 1f);
-//                        makeMove(move[0], move[1]);
-//                        switchTurns();
-//                    }
-//                }
-//                ((GameActivity) getActivity()).stopThinking();
-//            }
-//        }, 1000);
-//    }
-//
-//    private void pickMove(int move[]) {
-//        Tile.Owner opponent = mPlayer == Tile.Owner.X ? Tile.Owner.O : Tile
-//                .Owner.X;
-//        int bestLarge = -1;
-//        int bestSmall = -1;
-//        int bestValue = Integer.MAX_VALUE;
-//        for (int large = 0; large < 9; large++) {
-//            for (int small = 0; small < 9; small++) {
-//                Tile smallTile = mSmallTiles[large][small];
-//                if (isAvailable(smallTile)) {
-//                    // Try the move and get the score
-//                    Tile newBoard = mEntireBoard.deepCopy();
-//                    newBoard.getSubTiles()[large].getSubTiles()[small]
-//                            .setOwner(opponent);
-//                    int value = newBoard.evaluate();
-//                    Log.d("UT3",
-//                            "Moving to " + large + ", " + small + " gives value " +
-//                                    "" + value
-//                    );
-//                    if (value < bestValue) {
-//                        bestLarge = large;
-//                        bestSmall = small;
-//                        bestValue = value;
-//                    }
-//                }
-//            }
-//        }
-//        move[0] = bestLarge;
-//        move[1] = bestSmall;
-//        Log.d("UT3", "Best move is " + bestLarge + ", " + bestSmall);
-//    }
-//
-//    private void switchTurns() {
-//        mPlayer = mPlayer == Tile.Owner.X ? Tile.Owner.O : Tile
-//                .Owner.X;
-//    }
-//
-//    private void makeMove(int large, int small) {
-//        mLastLarge = large;
-//        mLastSmall = small;
-//        Tile smallTile = mSmallTiles[large][small];
-//        Tile largeTile = mLargeTiles[large];
-//        smallTile.setOwner(mPlayer);
-//        setAvailableFromLastMove(small);
-//        Tile.Owner oldWinner = largeTile.getOwner();
-//        Tile.Owner winner = largeTile.findWinner();
-//        if (winner != oldWinner) {
-//            largeTile.animate();
-//            largeTile.setOwner(winner);
-//        }
-//        winner = mEntireBoard.findWinner();
-//        mEntireBoard.setOwner(winner);
-//        updateAllTiles();
-//        if (winner != Tile.Owner.NEITHER) {
-//            ((GameActivity)getActivity()).reportWinner(winner);
-//        }
-//    }
-//
-//    public void restartGame() {
-//        mSoundPool.play(mSoundRewind, mVolume, mVolume, 1, 0, 1f);
-//        // ...
-//        initGame();
-//        initViews(getView());
-//        updateAllTiles();
-//    }
-//
     public void initGame() {
         Log.d("UT3", "init game");
         mEntireBoard = new Tile(this);
@@ -324,35 +197,8 @@ public class GameFragment extends Fragment {
         // If the player moves first, set which spots are available
         mLastSmall = -1;
         mLastLarge = -1;
-        //setAvailableFromLastMove(mLastSmall);
     }
-//
-//    private void setAvailableFromLastMove(int small) {
-//        clearAvailable();
-//        // Make all the tiles at the destination available
-//        if (small != -1) {
-//            for (int dest = 0; dest < 9; dest++) {
-//                Tile tile = mSmallTiles[small][dest];
-//                if (tile.getOwner() == Tile.Owner.NEITHER)
-//                    addAvailable(tile);
-//            }
-//        }
-//        // If there were none available, make all squares available
-//        if (mAvailable.isEmpty()) {
-//            setAllAvailable();
-//        }
-//    }
-//
-//    private void setAllAvailable() {
-//        for (int large = 0; large < 9; large++) {
-//            for (int small = 0; small < 9; small++) {
-//                Tile tile = mSmallTiles[large][small];
-//                if (tile.getOwner() == Tile.Owner.NEITHER)
-//                    addAvailable(tile);
-//            }
-//        }
-//    }
-//
+
     private void updateAllTiles() {
         mEntireBoard.updateDrawableState();
         for (int large = 0; large < 9; large++) {
@@ -361,37 +207,45 @@ public class GameFragment extends Fragment {
                 mSmallTiles[large][small].updateDrawableState();
             }
         }
+
+        Tile phaseTwoPanel = mLargeTiles[4];
+        if(phaseOneEnds() && !isPhaseTwo) {
+            isPhaseTwo = true;
+            // Use the middle one as the bonus points;
+            List<Character> characters = new ArrayList<>();
+            for (Tile largeTile : mLargeTiles) {
+                Character randomCharacter = largeTile.choosenWord
+                        .charAt(new Random().nextInt(largeTile.choosenWord.length()));
+                characters.add(randomCharacter);
+            }
+
+            // Reset the middle tile;
+            phaseTwoPanel.choosenWord = "";
+            phaseTwoPanel.setLocked(false);
+            phaseTwoPanel.submitted = false;
+            phaseTwoPanel.lastPosition = -1;
+            int i = 0;
+            for (Tile smallTile: phaseTwoPanel.getSubTiles()) {
+                smallTile.choosen = false;
+                smallTile.character = characters.get(i);
+                smallTile.setLevel(1);
+                ++i;
+            }
+            updateAllTiles();
+        }
+
+        if (isPhaseTwo && phaseTwoPanel.submitted) {
+            // if already phase 2 and the phase two panel has been submitted as well, just win()!
+            ((GameActivity)getActivity()).win();
+        }
     }
-//
-//    /** Create a string containing the state of the game. */
-//    public String getState() {
-//        StringBuilder builder = new StringBuilder();
-//        builder.append(mLastLarge);
-//        builder.append(',');
-//        builder.append(mLastSmall);
-//        builder.append(',');
-//        for (int large = 0; large < 9; large++) {
-//            for (int small = 0; small < 9; small++) {
-//                builder.append(mSmallTiles[large][small].getOwner().name());
-//                builder.append(',');
-//            }
-//        }
-//        return builder.toString();
-//    }
-//
-//    /** Restore the state of the game from the given string. */
-//    public void putState(String gameData) {
-//        String[] fields = gameData.split(",");
-//        int index = 0;
-//        mLastLarge = Integer.parseInt(fields[index++]);
-//        mLastSmall = Integer.parseInt(fields[index++]);
-//        for (int large = 0; large < 9; large++) {
-//            for (int small = 0; small < 9; small++) {
-//                Tile.Owner owner = Tile.Owner.valueOf(fields[index++]);
-//                mSmallTiles[large][small].setOwner(owner);
-//            }
-//        }
-//        setAvailableFromLastMove(mLastSmall);
-//        updateAllTiles();
-//    }
+
+    private boolean phaseOneEnds() {
+        for (Tile tile: mLargeTiles) {
+            if (!tile.submitted) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

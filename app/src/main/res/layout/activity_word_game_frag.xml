@@ -11,26 +11,13 @@
         <!--android:layout_height="match_parent"-->
         <!--android:scaleType="centerCrop"-->
         <!--android:src="@drawable/starnight"/>-->
-
-    <!--<include layout="@layout/thinking"/>-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical"-->
-        <!--android:weightSum="1">-->
-        <ListView
-            android:id="@+id/matchedWord"
-            android:layout_width="121dp"
-            android:background="@color/gray_color"
-            android:alpha="0.4"
-            android:gravity="top"
-            android:layout_height="180dp" />
-
-    <!--</LinearLayout>-->
-
-
+    <ListView
+        android:id="@+id/matchedWord"
+        android:layout_width="121dp"
+        android:background="@color/gray_color"
+        android:alpha="0.4"
+        android:gravity="top"
+        android:layout_height="180dp" />
 
 
     <LinearLayout
@@ -39,13 +26,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="1">
-
-        <!--<ListView-->
-            <!--android:id="@+id/wordsd"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="top"/>-->
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,11 +58,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_wordgame_control" />
-
-        <!-- Control fragment goes here... -->
-
-
     </LinearLayout>
-
-
 </FrameLayout>

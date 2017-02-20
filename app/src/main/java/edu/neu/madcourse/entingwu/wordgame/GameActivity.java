@@ -1,6 +1,8 @@
 package edu.neu.madcourse.entingwu.wordgame;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -32,7 +34,6 @@ public class GameActivity extends Activity {
     CountDownTimer timer;
     long totalSec;
 
-
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("init it it ", "GameActivity");
@@ -51,38 +52,7 @@ public class GameActivity extends Activity {
         tx.setText("Score: 0");
 
         timerText = (TextView) findViewById(R.id.timer);
-        initTimer(120000);
-//        timer =  new CountDownTimer(120000, 1000) {
-//            public void onTick(long millisUntilFinished) {
-//                totalSec =  millisUntilFinished / 1000;
-//                long mins = totalSec / 60;
-//                long secs = totalSec % 60;
-//                timerText.setText(String.format("Time Remaining: %d:%d", mins, secs));
-//
-//                if (mins < 1) {
-//                    mGameFragment.playTimerSound();
-//                    timerText.setTextColor(Color.RED);
-//                }
-//            }
-//
-//            public void onFinish() {
-//                timerText.setText("done!");
-//            }
-//        }.start();
-
-
-
-    //dictionary = new Dictionary(getAssets());
-
-        //boolean restore = getIntent().getBooleanExtra(KEY_RESTORE, false);
-//        if (restore) {
-//            String gameData = getPreferences(MODE_PRIVATE)
-//                    .getString(PREF_RESTORE, null);
-//            if (gameData != null) {
-                //mGameFragment.putState(gameData);
-//            }
-//        }
-        //Log.d("UT3", "restore = " + restore);
+        initTimer(180000);
     }
 
 
@@ -110,7 +80,8 @@ public class GameActivity extends Activity {
             }
 
             public void onFinish() {
-                timerText.setText("done!");
+                win();
+                timerText.setText("Game Over");
             }
         }.start();
     }
@@ -128,9 +99,29 @@ public class GameActivity extends Activity {
         mGameFragment.pauseGame();
     }
 
+    public void finish() {
+        timer.cancel();
+    }
+
     public void resumeGame() {
         initTimer(totalSec * 1000);
         mGameFragment.resumeGame();
+    }
+
+    public void win() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Great job! Total score is: " + this.mGameFragment.score);
+        builder.setCancelable(false);
+        builder.setPositiveButton(R.string.main_menu_label,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // nothing
+                        onBackPressed();
+                    }
+                });
+        builder.show();
+        timer.cancel();
     }
 
 

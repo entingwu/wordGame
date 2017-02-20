@@ -19,6 +19,7 @@ public class Tile {
     public int lastPosition = -1;
     public char character;
     public boolean choosen;
+    public boolean submitted;
     private boolean prevLocked;
     private boolean locked;
 
@@ -48,7 +49,6 @@ public class Tile {
     }
 
     public boolean isChoosable(int choosen) {
-        Log.i("choosable ", String.valueOf(choosen) + ", " + String.valueOf(lastPosition));
         if (lastPosition == - 1) {
             return true;
         }
@@ -83,6 +83,7 @@ public class Tile {
                 elem.setLevel(26);
             }
         }
+        submitted = true;
         setLocked(true);
     }
 
@@ -93,7 +94,6 @@ public class Tile {
             }
         }
     }
-
 
     public void setSubTiles(Tile[] subTiles) {
         this.mSubTiles = subTiles;
@@ -109,13 +109,6 @@ public class Tile {
 
     public void updateDrawableState() {
         if (mView == null) return;
-        //int level = level
-//        if (mView.getBackground() != null) {
-//            //Log.i("level is ", String.valueOf(level));
-//            //mView.getBackground().setLevel(level);
-//            //Log.i("Id is ", String.valueOf(mView.getId()));
-//            //mView.getBackground().setAlpha(0);
-//        }
         if (mView instanceof ImageButton) {
             Drawable drawable = ((ImageButton) mView).getDrawable();
             if ((character - 'a') >=0  && (character - 'a') < 26 && level != 26) {
@@ -124,15 +117,8 @@ public class Tile {
                 // no character case.
                 drawable.setLevel(level);
             }
-            //mView.getBackground().setAlpha(level);
             mView.getBackground().setLevel(level);
-            //Log.i("bg Id is ", String.valueOf(mView.getId()));
-            //Log.i("level is ", String.valueOf(level));
         }
-    }
-
-    public int getLevel() {
-        return 1;
     }
 
     public void animate() {

@@ -15,11 +15,25 @@
         android:layout_height="match_parent"
         app:scrollingDrawable="@drawable/cube_background"/>
 
-    <fragment
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <fragment
         android:id="@+id/wg_main_fragment"
         class="edu.neu.madcourse.entingwu.wordgame.MainFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         tools:layout="@layout/fragment_word_game_main"/>
+
+        <Button
+            android:background="@drawable/mute"
+            android:layout_width="64dp"
+            android:layout_height="50dp"
+            android:id="@+id/mute_button" />
+    </LinearLayout>
 </FrameLayout>

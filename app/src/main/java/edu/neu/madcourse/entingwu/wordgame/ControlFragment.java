@@ -27,8 +27,8 @@ public class ControlFragment extends Fragment {
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((GameActivity)getActivity()).finish();
-                ((GameActivity)getActivity()).onBackPressed();
+                getActivity().onBackPressed();
+
             }
         });
         pause.setOnClickListener(new View.OnClickListener() {
