@@ -1,9 +1,11 @@
 package edu.neu.madcourse.entingwu.wordgame;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -25,9 +27,16 @@ public class GameActivity extends Activity {
     private ArrayAdapter<String> adapter;
     List<String> listItems = new ArrayList<>();
     Dictionary dictionary = new Dictionary();
+    TextView tx;
+    TextView timerText;
+    CountDownTimer timer;
+    long totalSec;
 
-    @Override
+
+@Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("init it it ", "GameActivity");
+        dictionary.setAssetManager(getAssets());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_game_frag);
         mGameFragment = (GameFragment) getFragmentManager()
@@ -38,9 +47,32 @@ public class GameActivity extends Activity {
                 listItems) {
         };
         list.setAdapter(adapter);
-        dictionary.setAssetManager(getAssets());
+        tx = (TextView) findViewById(R.id.score);
+        tx.setText("Score: 0");
 
-        //dictionary = new Dictionary(getAssets());
+        timerText = (TextView) findViewById(R.id.timer);
+        initTimer(120000);
+//        timer =  new CountDownTimer(120000, 1000) {
+//            public void onTick(long millisUntilFinished) {
+//                totalSec =  millisUntilFinished / 1000;
+//                long mins = totalSec / 60;
+//                long secs = totalSec % 60;
+//                timerText.setText(String.format("Time Remaining: %d:%d", mins, secs));
+//
+//                if (mins < 1) {
+//                    mGameFragment.playTimerSound();
+//                    timerText.setTextColor(Color.RED);
+//                }
+//            }
+//
+//            public void onFinish() {
+//                timerText.setText("done!");
+//            }
+//        }.start();
+
+
+
+    //dictionary = new Dictionary(getAssets());
 
         //boolean restore = getIntent().getBooleanExtra(KEY_RESTORE, false);
 //        if (restore) {
@@ -53,14 +85,34 @@ public class GameActivity extends Activity {
         //Log.d("UT3", "restore = " + restore);
     }
 
+
     void addWord(String str) {
         listItems.add(str);
         adapter.notifyDataSetChanged();
     }
 
     void updateScore(int score) {
-        TextView tx = (TextView) findViewById(R.id.score);
         tx.setText("Score: " + score);
+    }
+
+    void initTimer(long leftTime) {
+        timer =  new CountDownTimer(leftTime, 1000) {
+            public void onTick(long millisUntilFinished) {
+                totalSec =  millisUntilFinished / 1000;
+                long mins = totalSec / 60;
+                long secs = totalSec % 60;
+                timerText.setText(String.format("Time Remaining: %d:%d", mins, secs));
+
+                if (mins < 1) {
+                    mGameFragment.playTimerSound();
+                    timerText.setTextColor(Color.RED);
+                }
+            }
+
+            public void onFinish() {
+                timerText.setText("done!");
+            }
+        }.start();
     }
 
     public String getRandomWord() {
@@ -71,6 +123,15 @@ public class GameActivity extends Activity {
         return dictionary.isInDict(word);
     }
 
+    public void pauseGame() {
+        timer.cancel();
+        mGameFragment.pauseGame();
+    }
+
+    public void resumeGame() {
+        initTimer(totalSec * 1000);
+        mGameFragment.resumeGame();
+    }
 
 
 }

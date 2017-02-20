@@ -21,25 +21,32 @@ public class MainFragment extends Fragment {
                 inflater.inflate(R.layout.fragment_word_game_main, container, false);
         // Handle buttons here...
         View newButton = rootView.findViewById(R.id.new_wg_button);
-       // View continueButton = rootView.findViewById(R.id.continue_button);
-        View aboutButton = rootView.findViewById(R.id.about_wg_button);
+        View instructionButton = rootView.findViewById(R.id.instruction_wg_button);
+        View acknowledgementButton = rootView.findViewById(R.id.acknowledgement_wg_button);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.print("heahaha ");
                 Intent intent = new Intent(getActivity(), GameActivity.class);
                 getActivity().startActivity(intent);
             }
         });
-//        continueButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), GameActivity.class);
-//                //intent.putExtra(GameActivity.KEY_RESTORE, true);
-//                getActivity().startActivity(intent);
-//            }
-//        });
-        aboutButton.setOnClickListener(new View.OnClickListener() {
+        instructionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Select letters to form words in dictionary, once get a valid word, click again to submit. Click the non back to back letter to cancel the letters");
+                builder.setCancelable(false);
+                builder.setPositiveButton(R.string.ok_label,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // nothing
+                            }
+                        });
+                mDialog = builder.show();
+            }
+        });
+        acknowledgementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

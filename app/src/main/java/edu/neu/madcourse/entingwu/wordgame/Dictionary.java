@@ -12,6 +12,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import edu.neu.madcourse.entingwu.Trie;
 
@@ -24,9 +27,10 @@ public class Dictionary {
 
     private Trie[][][] tries = new Trie[26][26][26];
     private static final Gson gson = new Gson();
+    List<String> nineCharResult = new ArrayList<>();
 
     public Dictionary() {
-        this.assetManager = assetManager;
+
     }
 
     void setAssetManager(AssetManager assetManager) {
@@ -34,7 +38,10 @@ public class Dictionary {
     }
 
     String getRandomNineCharacterString() {
-        return "abcdefghij";
+        if (nineCharResult.isEmpty()) {
+            readNineCharacters(FILE_PATH_PREFIX + "nine", assetManager);
+        }
+        return nineCharResult.get(new Random().nextInt(nineCharResult.size()));
     }
 
     /** Read the json String from the file in ./assets */
@@ -59,6 +66,27 @@ public class Dictionary {
             Log.e("login activity", String.format("Can not read file:  %s", e.toString()));
         }
         return sb.toString();
+    }
+
+    private void readNineCharacters(String fileName, AssetManager assetManager) {
+        try {
+            InputStream is = assetManager.open(fileName);
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+
+            String line = br.readLine();
+            while (line != null && !line.isEmpty()) {
+                nineCharResult.add(line);
+                line = br.readLine();
+            }
+            br.close();
+            isr.close();
+            is.close();
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", String.format("File not found: %s", e.toString()));
+        } catch (IOException e) {
+            Log.e("login activity", String.format("Can not read file:  %s", e.toString()));
+        }
     }
 
     boolean isInDict(String s) {

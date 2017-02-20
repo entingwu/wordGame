@@ -13,12 +13,14 @@ import edu.neu.madcourse.entingwu.R;
 
 public class Tile {
     private Tile mSubTiles[];
-    public int level = 1;
+    private int level = 1;
+    private int prevLevel = 1;
     public String choosenWord = "";
     public int lastPosition = -1;
     public char character;
     public boolean choosen;
-    public boolean locked;
+    private boolean prevLocked;
+    private boolean locked;
 
     private final GameFragment mGame;
     private View mView;
@@ -64,7 +66,7 @@ public class Tile {
         // small tiles;
         for (Tile elem : getSubTiles()) {
             elem.choosen = false;
-            elem.level = 1;
+            elem.setLevel(1);
         }
         Log.i("all things cleared", "");
     }
@@ -76,18 +78,18 @@ public class Tile {
         // 5. Lock the large board.
         for (Tile elem : getSubTiles()) {
             if (elem.choosen) {
-                elem.level = 3;
+                elem.setLevel(3);
             } else {
-                elem.character = '-';
+                elem.setLevel(26);
             }
         }
-        locked = true;
+        setLocked(true);
     }
 
     public void painMatch(int level) {
         for (Tile elem : getSubTiles()) {
             if (elem.choosen) {
-                elem.level = level;
+                elem.setLevel(level);
             }
         }
     }
@@ -108,20 +110,19 @@ public class Tile {
     public void updateDrawableState() {
         if (mView == null) return;
         //int level = level
-        if (mView.getBackground() != null) {
-            //Log.i("level is ", String.valueOf(level));
-            //mView.getBackground().setLevel(level);
-            //Log.i("Id is ", String.valueOf(mView.getId()));
-            //mView.getBackground().setAlpha(0);
-        }
+//        if (mView.getBackground() != null) {
+//            //Log.i("level is ", String.valueOf(level));
+//            //mView.getBackground().setLevel(level);
+//            //Log.i("Id is ", String.valueOf(mView.getId()));
+//            //mView.getBackground().setAlpha(0);
+//        }
         if (mView instanceof ImageButton) {
             Drawable drawable = ((ImageButton) mView).getDrawable();
-            if ((character - 'a') >=0  && (character - 'a') < 26) {
-                //Log.i("character is ", String.valueOf(character));
+            if ((character - 'a') >=0  && (character - 'a') < 26 && level != 26) {
                 drawable.setLevel(character - 'a');
-            } else {
-                // invalid character.
-                drawable.setLevel(26);
+            } else if (level  == 26) {
+                // no character case.
+                drawable.setLevel(level);
             }
             //mView.getBackground().setAlpha(level);
             mView.getBackground().setLevel(level);
@@ -143,6 +144,25 @@ public class Tile {
         }
     }
 
+    public void setLevel(int level) {
+        prevLevel = this.level;
+        this.level = level;
+    }
 
+    public void setLocked(boolean locked) {
+        prevLocked = this.locked;
+        this.locked = locked;
+    }
 
+    public void recoverLocked() {
+        this.locked = prevLocked;
+    }
+
+    public void recoverLevel() {
+        this.level = prevLevel;
+    }
+
+    public boolean getLocked() {
+        return locked;
+    }
 }

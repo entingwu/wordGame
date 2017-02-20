@@ -49,6 +49,7 @@ public class GameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Retain this fragment across configuration changes.
+        Log.i("init it it ", "GameFragment");
         setRetainInstance(true);
         initGame();
         mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
@@ -76,6 +77,33 @@ public class GameFragment extends Fragment {
         mAvailable.add(tile);
     }
 
+    public void playTimerSound() {
+        mSoundPool.play(mSoundMiss, mVolume, mVolume, 1, 0, 1f);
+    }
+
+    public void pauseGame() {
+        for (Tile t : mLargeTiles) {
+            t.setLocked(true);
+            for (Tile sub : t.getSubTiles()) {
+                sub.setLevel(26);
+                //sub.character = '-';
+            }
+        }
+        updateAllTiles();
+    }
+
+    public void resumeGame() {
+        for (Tile t : mLargeTiles) {
+            t.recoverLocked();
+            // reset all levels;
+            for (Tile sub : t.getSubTiles()) {
+                sub.recoverLevel();
+                //sub.character = '-';
+            }
+        }
+        updateAllTiles();
+    }
+
     public boolean isAvailable(Tile tile) {
         return mAvailable.contains(tile);
     }
@@ -95,9 +123,6 @@ public class GameFragment extends Fragment {
         for (int large = 0; large < 9; large++) {
             View outer = rootView.findViewById(mLargeIds[large]);
             mLargeTiles[large].setView(outer);
-
-
-
             for (int small = 0; small < 9; small++) {
                 ImageButton inner = (ImageButton) outer.findViewById
                         (mSmallIds[small]);
@@ -110,7 +135,7 @@ public class GameFragment extends Fragment {
                 inner.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (largeTile.locked) {
+                        if (largeTile.getLocked()) {
                             // if locked nothing to do;
                             return;
                         }
@@ -149,6 +174,10 @@ public class GameFragment extends Fragment {
                                 if (((GameActivity)getActivity()).isInDict(largeTile.choosenWord)) {
                                     // match
                                     mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
+                                    // 2: Choosen
+                                    // 3: is in dict
+                                    // 1: default
+                                    // 0: not seen.
                                     largeTile.painMatch(3);
                                 } else {
                                     largeTile.painMatch(2);
@@ -173,12 +202,12 @@ public class GameFragment extends Fragment {
         }
     }
 
-    private void setTile(int fLarge, int fSmall){
-        Tile smallTile = mSmallTiles[fLarge][fSmall];
-        smallTile.choosen = true;
-        //smallTile.status = 1;
-        smallTile.level = 2;
-    }
+//    private void setTile(int fLarge, int fSmall){
+//        Tile smallTile = mSmallTiles[fLarge][fSmall];
+//        smallTile.choosen = true;
+//        //smallTile.status = 1;
+//        smallTile.level = 2;
+//    }
 //
 //    private void think() {
 //        mHandler.postDelayed(new Runnable() {

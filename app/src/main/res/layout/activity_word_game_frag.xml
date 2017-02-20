@@ -14,11 +14,31 @@
 
     <!--<include layout="@layout/thinking"/>-->
 
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical"-->
+        <!--android:weightSum="1">-->
+        <ListView
+            android:id="@+id/matchedWord"
+            android:layout_width="121dp"
+            android:background="@color/gray_color"
+            android:alpha="0.4"
+            android:gravity="top"
+            android:layout_height="180dp" />
+
+    <!--</LinearLayout>-->
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <!--<ListView-->
             <!--android:id="@+id/wordsd"-->
@@ -26,6 +46,15 @@
             <!--android:layout_height="match_parent"-->
             <!--android:gravity="top"/>-->
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/score"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_large"
+            tools:text="Score: 0"
+            android:textAppearance="@style/TextDefaultStyle" />
 
         <fragment
             android:id="@+id/fragment_wordgame"
@@ -35,26 +64,25 @@
             android:gravity="top"
             tools:layout="@layout/fragment_wordgame"/>
 
+        <TextView
+            android:text="Time Remaining: 03:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_large"
+            android:gravity="center"
+            android:id="@+id/timer" />
+
+        <fragment
+            android:id="@+id/fragment_game_controls"
+            class="edu.neu.madcourse.entingwu.wordgame.ControlFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_wordgame_control" />
+
         <!-- Control fragment goes here... -->
 
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/matchedWord"
-        android:layout_width="121dp"
-        android:background="@color/gray_color"
-        android:alpha="0.4"
-        android:gravity="top"
-        android:layout_height="180dp" />
-
-    <TextView
-        android:layout_width="357dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/score"
-        android:gravity="center"
-        tools:text="Score: 0"
-        android:textAppearance="@style/TextDefaultStyle" />
 
 
 </FrameLayout>

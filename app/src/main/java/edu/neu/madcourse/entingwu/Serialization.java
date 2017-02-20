@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Serialization {
 
@@ -17,33 +19,36 @@ public class Serialization {
             "/Users/entingwu/AndroidStudioProjects/NUMAD17S-EntingWu/app/src/main/assets/dictionary/";
     private static final Gson gson = new Gson();
     private static Trie[][][] tries = new Trie[26][26][26];
+    private static final List<String> nineCharacterWord = new ArrayList<>();
 
     public static void main(String[] args) {
         // 0. Initialize Trie[][]
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < 26; j++) {
-                for (int k = 0; k < 26; k++) {
-                    tries[i][j][k] = new Trie();
-                }
-            }
-        }
+//        for (int i = 0; i < 26; i++) {
+//            for (int j = 0; j < 26; j++) {
+//                for (int k = 0; k < 26; k++) {
+//                    tries[i][j][k] = new Trie();
+//                }
+//            }
+//        }
         // 1. Read File from Internal Storage, txt -> Trie[][]
         readFile(READ_FILE);
 
-        String[][][] jsons = new String[26][26][26];
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < 26; j++) {
-                for (int k = 0; k < 26; k++) {
-                    // 2. Serialization, Trie[][] -> String[][]
-                    jsons[i][j][k] = gson.toJson(tries[i][j][k]);
+//        String[][][] jsons = new String[26][26][26];
+//        for (int i = 0; i < 26; i++) {
+//            for (int j = 0; j < 26; j++) {
+//                for (int k = 0; k < 26; k++) {
+//                    // 2. Serialization, Trie[][] -> String[][]
+//                    jsons[i][j][k] = gson.toJson(tries[i][j][k]);
+//
+//                    // 3. Save File in ./assets
+//                    String fileName = WRITE_PATH_PREFIX + FILE_NAME_PREFIX + DIV +
+//                            (char)('a'+ i) + (char)('a'+ j) + (char)('a'+ k);
+//                    writeFile(jsons[i][j][k], fileName);
+//                }
+//            }
+//        }
 
-                    // 3. Save File in ./assets
-                    String fileName = WRITE_PATH_PREFIX + FILE_NAME_PREFIX + DIV +
-                            (char)('a'+ i) + (char)('a'+ j) + (char)('a'+ k);
-                    writeFile(jsons[i][j][k], fileName);
-                }
-            }
-        }
+        writeFileNineCharacters(nineCharacterWord, WRITE_PATH_PREFIX + "nine", 1000);
     }
 
     /** Read txt file from local file system.
@@ -61,7 +66,10 @@ public class Serialization {
                 c2 = line.charAt(1) - 'a';
                 c3 = line.charAt(2) - 'a';
                 System.out.println(line);
-                tries[c1][c2][c3].insert(line.trim());
+                //tries[c1][c2][c3].insert(line.trim());
+                if (line.trim().length() == 9) {
+                    nineCharacterWord.add(line.trim());
+                }
                 line = br.readLine();
             }
         } catch (IOException e) {
@@ -88,6 +96,41 @@ public class Serialization {
             fw = new FileWriter(fileName);
             bw = new BufferedWriter(fw);
             bw.write(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.close();
+                }
+                if (fw != null) {
+                    fw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /** Write the json String to the local file */
+    private static void writeFileNineCharacters(List<String> strs, String fileName, int limit) {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            fw = new FileWriter(fileName);
+            bw = new BufferedWriter(fw);
+            int i = 0;
+            for (String s : strs) {
+                if (!s.isEmpty()){
+                    if (i > 1000) {
+                        break;
+                    }
+                    bw.write(s);
+                    bw.newLine();
+                    ++ i;
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
