@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -55,6 +56,10 @@ public class GameActivity extends Activity {
         initTimer(180000);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
     void addWord(String str) {
         listItems.add(str);
@@ -66,6 +71,10 @@ public class GameActivity extends Activity {
     }
 
     void initTimer(long leftTime) {
+        if(timer != null) {
+            timer.cancel();
+            timer = null;
+        }
         timer =  new CountDownTimer(leftTime, 1000) {
             public void onTick(long millisUntilFinished) {
                 totalSec =  millisUntilFinished / 1000;

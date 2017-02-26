@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".wordgame.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+
+        android:weightSum="1">
+
+        <fragment
+            android:id="@+id/fragment_wordgame"
+            class="edu.neu.madcourse.entingwu.wordgame.GameFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            tools:layout="@layout/fragment_wordgame"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:baselineAligned="false"
+            android:weightSum="1">
+
+            <ListView
+                android:id="@+id/matchedWord"
+                android:layout_width="110dp"
+                android:background="@color/gray_color"
+                android:alpha="0.4"
+                android:gravity="top"
+                android:layout_height="109dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/score"
+                android:gravity="center"
+                android:textSize="@dimen/font_size_large"
+                tools:text="Score: 0"
+                android:textAppearance="@style/TextDefaultStyle" />
+
+            <TextView
+            android:text="Time Remaining: 03:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_large"
+            android:gravity="center"
+            android:id="@+id/timer" />
+
+            <fragment
+                android:id="@+id/fragment_game_controls"
+                class="edu.neu.madcourse.entingwu.wordgame.ControlFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                tools:layout="@layout/fragment_wordgame_control"
+                android:layout_weight="1.41" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

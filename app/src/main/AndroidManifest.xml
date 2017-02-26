@@ -43,6 +43,7 @@
             android:name="edu.neu.madcourse.entingwu.tictactoe.GameActivity">
         </activity>
         <activity
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:name="edu.neu.madcourse.entingwu.wordgame.GameActivity">
         </activity>
     </application>

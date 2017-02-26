@@ -40,6 +40,7 @@ public class GameFragment extends Fragment {
     private int mLastSmall;
     int score = 0;
     boolean isPhaseTwo;
+    private HashSet<String> choosenWords = new HashSet<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,7 +123,8 @@ public class GameFragment extends Fragment {
                         if (smallTile.choosen) {
                             // submit the word;
                             Log.i("the choosen word is: ", largeTile.choosenWord);
-                            if ( ((GameActivity)getActivity()).isInDict(largeTile.choosenWord)) {
+                            if ( ((GameActivity)getActivity()).isInDict(largeTile.choosenWord)
+                                    && !choosenWords.contains(largeTile.choosenWord)) {
                                 // if the the choosen word exists,
                                 // 1. play a sound,
                                 // 2. change the level of the choosen word.
@@ -134,6 +136,7 @@ public class GameFragment extends Fragment {
                                 ((GameActivity)getActivity()).addWord(largeTile.choosenWord);
                                 score += largeTile.choosenWord.length() * (isPhaseTwo ? 30 : 10);
                                 ((GameActivity)getActivity()).updateScore(score);
+                                choosenWords.add(largeTile.choosenWord);
                             } else {
                                 largeTile.clearLargeBoard();
                             }
@@ -143,7 +146,8 @@ public class GameFragment extends Fragment {
                                 largeTile.choosenWord += String.valueOf(smallTile.character);
                                 largeTile.lastPosition = currentOne;
                                 smallTile.choosen = true;
-                                if (((GameActivity)getActivity()).isInDict(largeTile.choosenWord)) {
+                                if (((GameActivity)getActivity()).isInDict(largeTile.choosenWord)
+                                 && !choosenWords.contains(largeTile.choosenWord)) {
                                     // match
                                     mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
                                     // 2: Choosen
