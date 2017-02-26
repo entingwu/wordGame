@@ -26,9 +26,6 @@
             android:name=".TestDictionaryActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_test_dictionary" />
-        <activity
-            android:name=".wordgame.MainActivity"
-            android:label="@string/title_word_game"/>
 
         <activity
             android:name=".tictactoe.MainActivity"
@@ -41,6 +38,15 @@
 
         <activity
             android:name="edu.neu.madcourse.entingwu.tictactoe.GameActivity">
+        </activity>
+
+        <activity
+            android:name=".wordgame.MainActivity"
+            android:label="@string/title_word_game">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:configChanges="orientation|screenSize|keyboardHidden"
