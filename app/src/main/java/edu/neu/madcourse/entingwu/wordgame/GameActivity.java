@@ -100,6 +100,7 @@ public class GameActivity extends Activity {
     }
 
     public void finish() {
+        super.finish();
         timer.cancel();
     }
 
@@ -117,6 +118,7 @@ public class GameActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // nothing
+                        finish();
                         onBackPressed();
                     }
                 });

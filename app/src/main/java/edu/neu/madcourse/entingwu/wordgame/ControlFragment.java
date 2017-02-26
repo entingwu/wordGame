@@ -27,6 +27,7 @@ public class ControlFragment extends Fragment {
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getActivity().finish();
                 getActivity().onBackPressed();
 
             }
