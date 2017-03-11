@@ -52,6 +52,18 @@
                 android:onClick="wordGame"
                 style="@style/ButtonDefaultStyle" />
 
+            <Button
+                android:text="@string/button_label_6"
+                android:id="@+id/button6"
+                android:onClick="openFCMActivity"
+                style="@style/ButtonDefaultStyle" />
+
+            <Button
+                android:text="@string/button_label_7"
+                android:id="@+id/button7"
+                android:onClick="openDBActivity"
+                style="@style/ButtonDefaultStyle" />
+
         </LinearLayout>
 
     </RelativeLayout>

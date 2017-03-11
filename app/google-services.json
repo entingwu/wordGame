@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "864490672369",
+    "firebase_url": "https://numad17s-entingwu-49c8b.firebaseio.com",
+    "project_id": "numad17s-entingwu-49c8b",
+    "storage_bucket": "numad17s-entingwu-49c8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864490672369:android:28c9a17696197bc2",
+        "android_client_info": {
+          "package_name": "edu.neu.madcourse.entingwu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864490672369-fgg0631bpc50hntlgn7cmpu803c7ross.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpVJ4xMhMzFRkSkG0-0IhwZ661XvAs6TQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -26,32 +26,30 @@
             android:name=".TestDictionaryActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_test_dictionary" />
-
         <activity
             android:name=".tictactoe.MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="edu.neu.madcourse.entingwu.tictactoe.GameActivity">
-        </activity>
-
+            android:label="@string/app_name"></activity>
+        <activity android:name=".tictactoe.GameActivity" />
         <activity
             android:name=".wordgame.MainActivity"
-            android:label="@string/title_word_game">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+            android:label="@string/title_word_game"></activity>
         <activity
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:name="edu.neu.madcourse.entingwu.wordgame.GameActivity">
-        </activity>
+            android:name=".wordgame.GameActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <service android:name=".firebase.WordGameMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebase.WordGameInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".firebase.FCMActivity" />
+        <activity android:name=".firebase.RealtimeDatabaseActivity"></activity>
     </application>
 
 </manifest>

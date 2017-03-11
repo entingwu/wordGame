@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import edu.neu.madcourse.entingwu.firebase.FCMActivity;
+import edu.neu.madcourse.entingwu.firebase.RealtimeDatabaseActivity;
+import edu.neu.madcourse.entingwu.wordgame.MainActivity;
+
 public class MainMenuActivity extends AppCompatActivity {
 
     private static final String TAG = "MainMenuActivity";
@@ -47,5 +51,13 @@ public class MainMenuActivity extends AppCompatActivity {
     public void launchTicTacToe(View view) {
         Intent intent = new Intent(this, edu.neu.madcourse.entingwu.tictactoe.MainActivity.class);
         startActivity(intent);
+    }
+
+    public void openFCMActivity(View view) {
+        startActivity(new Intent(this, FCMActivity.class));
+    }
+
+    public void openDBActivity(View view) {
+        startActivity(new Intent(this, RealtimeDatabaseActivity.class));
     }
 }
