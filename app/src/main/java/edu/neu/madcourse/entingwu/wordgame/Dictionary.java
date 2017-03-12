@@ -29,9 +29,7 @@ public class Dictionary {
     private static final Gson gson = new Gson();
     List<String> nineCharResult = new ArrayList<>();
 
-    public Dictionary() {
-
-    }
+    public Dictionary() {}
 
     void setAssetManager(AssetManager assetManager) {
         this.assetManager = assetManager;

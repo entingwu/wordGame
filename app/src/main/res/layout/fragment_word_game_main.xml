@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
         android:padding="@dimen/menu_button_padding"
-        android:text="instruction"/>
+        android:text="@string/instruction_label"/>
 
     <Button
         android:id="@+id/new_wg_button"
@@ -44,4 +44,13 @@
         android:layout_margin="@dimen/menu_button_margin"
         android:padding="@dimen/menu_button_padding"
         android:text="@string/button_label_acknowledgement"/>
+
+    <Button
+        android:id="@+id/score_wg_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:padding="@dimen/menu_button_padding"
+        android:text="@string/score_label"/>
 </LinearLayout>

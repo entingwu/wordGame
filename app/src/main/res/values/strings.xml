@@ -34,6 +34,18 @@
     <!--Word Game-->
     <string name="title_word_game">Word Game</string>
     <string name="app_name_word_game">Super Word Game</string>
+    <string name="instruction_label">Instruction</string>
+    <string name="score_label">Score</string>
+    <string name="leader_board_text">Leader Board</string>
+    <string name="input_username">Please enter your username:</string>
+
+    <string name="username">User</string>
+    <string name="date">Date</string>
+    <string name="score">Score</string>
+    <string name="score_phase_1">Phase 1</string>
+    <string name="score_phase_2">Phase 2</string>
+    <string name="longest_word">Word</string>
+    <string name="word_score">Word Score</string>
 
     <!--TicTacToe-->
     <string name="app_name_ttt">UT3</string>
@@ -47,14 +59,14 @@
     <string name="about_title">About Ultimate Tic Tac Toe</string>
     <string name="about_label">About</string>
     <string name="about_text">\
-This game is played just like
-regular Tic Tac Toe with one difference: to win a tile
-you have to win a smaller game of Tic Tac Toe inside that tile.\n\
-\n\
-A tie happens when there are no further moves.
-In the case of a tie in a small board, that will count as a win for
-both sides in the larger game.
-</string>
+    This game is played just like
+    regular Tic Tac Toe with one difference: to win a tile
+    you have to win a smaller game of Tic Tac Toe inside that tile.\n\
+    \n\
+    A tie happens when there are no further moves.
+    In the case of a tie in a small board, that will count as a win for
+    both sides in the larger game.
+    </string>
 
     <string name="about_wg_text">\
         The background music is downloaded from: "http://www.bensound.com/royalty-free-music/corporate-pop"
@@ -66,15 +78,10 @@ both sides in the larger game.
     <string name="send_notification">Send Notification</string>
     <string name="log_token">Log Token</string>
 
-
     <string name="msg_subscribed">Subscribed to news topic</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
-
     <string name="go_to_fcm_demo">FCM Demo</string>
     <string name="go_to_realtime_database_demo">Realtime Database Demo</string>
-
-    <string name="username">User Name</string>
-    <string name="score">Score</string>
 
     <string name="add5">Add 5</string>
     <string name="send_notification_text">Send Android Notification</string>

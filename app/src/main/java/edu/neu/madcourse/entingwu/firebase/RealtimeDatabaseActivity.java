@@ -18,7 +18,7 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import edu.neu.madcourse.entingwu.R;
-import edu.neu.madcourse.entingwu.firebase.models.User;
+import edu.neu.madcourse.entingwu.firebase.models.Users;
 
 public class RealtimeDatabaseActivity extends AppCompatActivity {
 
@@ -59,28 +59,28 @@ public class RealtimeDatabaseActivity extends AppCompatActivity {
                 new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        User user = dataSnapshot.getValue(User.class);
+                        Users users = dataSnapshot.getValue(Users.class);
 
                         if (dataSnapshot.getKey().equalsIgnoreCase("user1")) {
-                            score.setText(user.score);
-                            userName.setText(user.username);
+                            score.setText(users.score);
+                            userName.setText(users.username);
                         } else {
-                            score2.setText(String.valueOf(user.score));
-                            userName2.setText(user.username);
+                            score2.setText(String.valueOf(users.score));
+                            userName2.setText(users.username);
                         }
                         Log.e(TAG, "onChildAdded: dataSnapshot = " + dataSnapshot.getValue());
                     }
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                        User user = dataSnapshot.getValue(User.class);
+                        Users users = dataSnapshot.getValue(Users.class);
 
                         if (dataSnapshot.getKey().equalsIgnoreCase("user1")) {
-                            score.setText(user.score);
-                            userName.setText(user.username);
+                            score.setText(users.score);
+                            userName.setText(users.username);
                         } else {
-                            score2.setText(String.valueOf(user.score));
-                            userName2.setText(user.username);
+                            score2.setText(String.valueOf(users.score));
+                            userName2.setText(users.username);
                         }
                         Log.v(TAG, "onChildChanged: "+dataSnapshot.getValue().toString());
                     }
@@ -115,7 +115,7 @@ public class RealtimeDatabaseActivity extends AppCompatActivity {
                 .runTransaction(new Transaction.Handler() {
                     @Override
                     public Transaction.Result doTransaction(MutableData mutableData) {
-                        User u = mutableData.getValue(User.class);
+                        Users u = mutableData.getValue(Users.class);
                         if (u == null) {
                             return Transaction.success(mutableData);
                         }
@@ -137,12 +137,12 @@ public class RealtimeDatabaseActivity extends AppCompatActivity {
 
     public void addUsers(View view){
 
-        User user = new User("user1", "0");
-        mDatabase.child("users").child(user.username).setValue(user);
+        Users users = new Users("user1", "0");
+        mDatabase.child("users").child(users.username).setValue(users);
 
-        User user2 = new User("user2", "0");
+        Users users2 = new Users("users2", "0");
 
-        mDatabase.child("users").child(user2.username).setValue(user2);
+        mDatabase.child("users").child(users2.username).setValue(users2);
     }
 
     public void doDumbDataAdd(View view){
