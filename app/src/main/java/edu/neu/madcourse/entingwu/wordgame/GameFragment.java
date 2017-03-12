@@ -1,9 +1,5 @@
 package edu.neu.madcourse.entingwu.wordgame;
 
-/**
- * Created by entingwu on 2/15/17.
- */
-
 import android.app.Fragment;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -20,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class GameFragment extends Fragment {
     static private int mLargeIds[] = {R.id.wg_large1, R.id.wg_large2, R.id.wg_large3,
@@ -29,6 +24,9 @@ public class GameFragment extends Fragment {
     static private int mSmallIds[] = {R.id.wg_small1, R.id.wg_small2, R.id.wg_small3,
             R.id.wg_small4, R.id.wg_small5, R.id.wg_small6, R.id.wg_small7, R.id.wg_small8,
             R.id.wg_small9,};
+    private static final int PHASE_1_PER_WORD_SCORE = 10;
+    private static final int PHASE_2_PER_WORD_SCORE = 30;
+
     private Handler mHandler = new Handler();
     private Tile mEntireBoard = new Tile(this);
     private Tile mLargeTiles[] = new Tile[9];
@@ -38,9 +36,15 @@ public class GameFragment extends Fragment {
     private float mVolume = 1f;
     private int mLastLarge;
     private int mLastSmall;
-    int score = 0;
-    boolean isPhaseTwo;
-    private HashSet<String> choosenWords = new HashSet<>();
+
+    private boolean isPhaseTwo;
+    public int scorePhase1 = 0;
+    public int scorePhase2 = 0;
+    public int score = 0;
+    public HashSet<String> choosenWords = new HashSet<>();
+    public String longestWord;
+    public int maxWordLen = 0;
+    public int wordScore = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,6 @@ public class GameFragment extends Fragment {
         mSoundO = mSoundPool.load(getActivity(), R.raw.sergenious_moveo, 1);
         mSoundMiss = mSoundPool.load(getActivity(), R.raw.erkanozan_miss, 1);
         mSoundRewind = mSoundPool.load(getActivity(), R.raw.joanne_rewind, 1);
-
     }
 
     public void playTimerSound() {
@@ -134,8 +137,26 @@ public class GameFragment extends Fragment {
                                 mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
                                 largeTile.finishIt();
                                 ((GameActivity)getActivity()).addWord(largeTile.choosenWord);
-                                score += largeTile.choosenWord.length() * (isPhaseTwo ? 30 : 10);
+
+                                // Count Score in PhaseOne and PhaseTwo
+                                int diff = 0;
+                                int currWordLen = largeTile.choosenWord.length();
+                                if (!isPhaseTwo) {
+                                    diff = currWordLen * PHASE_1_PER_WORD_SCORE;
+                                    scorePhase1 += diff;
+                                } else {
+                                    diff = currWordLen * PHASE_2_PER_WORD_SCORE;
+                                    scorePhase2 += diff;
+                                }
+                                score += diff;
                                 ((GameActivity)getActivity()).updateScore(score);
+
+                                // Find longest Word and Score
+                                if (currWordLen >= maxWordLen) {
+                                    maxWordLen = currWordLen;
+                                    longestWord = largeTile.choosenWord;
+                                    wordScore = diff;
+                                }
                                 choosenWords.add(largeTile.choosenWord);
                             } else {
                                 largeTile.clearLargeBoard();

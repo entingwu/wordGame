@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import edu.neu.madcourse.entingwu.R;
 
@@ -30,6 +31,9 @@ public class WordGameLeaderBoardActivity extends AppCompatActivity {
         wordScore = (TextView) findViewById(R.id.leader_board_word_score);
         date = (TextView) findViewById(R.id.leader_board_date);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        Query queryRef = mDatabase.orderByChild("score").limitToLast(10);
+
 
     }
 }

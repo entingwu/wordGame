@@ -19,8 +19,6 @@ public class MainFragment extends Fragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
     private AlertDialog mDialog;
-    private User user;
-    private Game game;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,19 +48,16 @@ public class MainFragment extends Fragment {
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             String userName = userInput.getText().toString();
-                            user = new User(userName);
-                            game = user.game;
-                            Log.i(TAG, "current username is: " + user.game.userName);
                             Intent intent = new Intent(getActivity(), GameActivity.class);
+                            intent.putExtra("userName", userName);
                             getActivity().startActivity(intent);
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            user = new User();
-                            game = user.game;
                             Intent intent = new Intent(getActivity(), GameActivity.class);
+                            intent.putExtra("username", "Anonymous");
                             getActivity().startActivity(intent);
                         }
                 });

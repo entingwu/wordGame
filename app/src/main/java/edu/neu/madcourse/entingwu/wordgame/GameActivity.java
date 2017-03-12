@@ -3,7 +3,6 @@ package edu.neu.madcourse.entingwu.wordgame;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -11,23 +10,30 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
-
 import edu.neu.madcourse.entingwu.R;
+import edu.neu.madcourse.entingwu.firebase.models.Game;
+import edu.neu.madcourse.entingwu.firebase.models.User;
 
 public class GameActivity extends Activity {
+
+    private static final String TAG = GameActivity.class.getSimpleName();
+    private DatabaseReference mDatabase;
     private MediaPlayer mMediaPlayer;
     private Handler mHandler = new Handler();
     private GameFragment mGameFragment;
     private ListView list;
     private ArrayAdapter<String> adapter;
+    private String userName;
+    private User user;
+    private Game game;
     List<String> listItems = new ArrayList<>();
     Dictionary dictionary = new Dictionary();
     TextView tx;
@@ -37,7 +43,10 @@ public class GameActivity extends Activity {
 
 @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("init it it ", "GameActivity");
+        Log.i("initialize ", "GameActivity");
+        Bundle bundle = getIntent().getExtras();
+        userName = bundle.getString("userName") == null ? "Anonymous" : bundle.getString("userName");
+
         dictionary.setAssetManager(getAssets());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_game_frag);
@@ -54,6 +63,7 @@ public class GameActivity extends Activity {
 
         timerText = (TextView) findViewById(R.id.timer);
         initTimer(180000);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -120,20 +130,34 @@ public class GameActivity extends Activity {
 
     public void win() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Great job! Total score is: " + this.mGameFragment.score);
+        int score = this.mGameFragment.score;
+        builder.setMessage("Great job! Total score is: " + score);
         builder.setCancelable(false);
         builder.setPositiveButton(R.string.main_menu_label,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // nothing
                         finish();
                         onBackPressed();
                     }
                 });
         builder.show();
         timer.cancel();
+
+        // send score to database
+        game = new Game(userName, String.valueOf(score), String.valueOf(mGameFragment.scorePhase1),
+                String.valueOf(mGameFragment.scorePhase2), mGameFragment.longestWord,
+                String.valueOf(mGameFragment.wordScore));
+        user = new User(userName, game);
+        Log.i(TAG, "current username is: " + user.game.userName);
+        onAddScore(mDatabase, userName, game);
     }
 
-
+    private void onAddScore(DatabaseReference postRef, String userName, Game game) {
+        postRef.child("users")
+                .child(userName)
+                .child(game.id)
+                .setValue(game);
+        Log.i(TAG, "onAddScore: " + user.game.score);
+    }
 }
