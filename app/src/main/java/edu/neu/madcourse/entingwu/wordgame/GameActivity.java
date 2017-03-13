@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.neu.madcourse.entingwu.R;
 import edu.neu.madcourse.entingwu.firebase.models.Game;
-import edu.neu.madcourse.entingwu.firebase.models.User;
 
 public class GameActivity extends Activity {
 
@@ -32,7 +31,6 @@ public class GameActivity extends Activity {
     private ListView list;
     private ArrayAdapter<String> adapter;
     private String userName;
-    private User user;
     private Game game;
     List<String> listItems = new ArrayList<>();
     Dictionary dictionary = new Dictionary();
@@ -148,16 +146,15 @@ public class GameActivity extends Activity {
         game = new Game(userName, String.valueOf(score), String.valueOf(mGameFragment.scorePhase1),
                 String.valueOf(mGameFragment.scorePhase2), mGameFragment.longestWord,
                 String.valueOf(mGameFragment.wordScore));
-        user = new User(userName, game);
-        Log.i(TAG, "current username is: " + user.game.userName);
-        onAddScore(mDatabase, userName, game);
+        Log.i(TAG, "current username is: " + userName);
+        onAddScore(mDatabase, game);
     }
 
-    private void onAddScore(DatabaseReference postRef, String userName, Game game) {
-        postRef.child("users")
-                .child(userName)
-                .child(game.id)
-                .setValue(game);
-        Log.i(TAG, "onAddScore: " + user.game.score);
+    private void onAddScore(DatabaseReference postRef, Game game) {
+        postRef
+            .child("games")
+            .child(game.id)
+            .setValue(game);
+        Log.i(TAG, "onAddScore: " + game.score);
     }
 }

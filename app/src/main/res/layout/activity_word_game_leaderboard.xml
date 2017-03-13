@@ -8,77 +8,110 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimaryDark"
     tools:context="edu.neu.madcourse.entingwu.firebase.WordGameLeaderBoardActivity">
 
-    <TextView
-        android:text="@string/leader_board_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/textView_leaderboard" />
-
-    <TableLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp">
+        android:layout_height="wrap_content">
 
-        <TableRow
-            android:id="@+id/tableRow_head"
-            android:padding="5dip"
-            android:layout_marginBottom="5dp"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/dividerVertical"
+            style="?android:buttonBarStyle">
+            <TextView
+                android:text="@string/leader_board_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/textView_leaderboard" />
+
+            <Button
+                android:text="@string/button_label_sort_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/colorAccent"
+                android:onClick="orderByTotalScore"
+                android:id="@+id/button_return_menu"/>
+
+            <Button
+                android:text="@string/button_label_sort_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/colorAccent"
+                android:onClick="orderByWordScore"
+                android:id="@+id/button_clear"/>
+
+        </LinearLayout>
+
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="1"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/username" />
+            <TableRow
+                android:id="@+id/tableRow_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="2"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/score" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1"
+                    android:padding="10dp"
+                    android:text="@string/username" />
 
-            <TextView
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="3"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/longest_word" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_horizontal"
+                    android:layout_column="2"
+                    android:padding="10dp"
+                    android:text="@string/score" />
 
-            <TextView
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="4"
-                android:gravity="center_horizontal"
-                android:text="@string/word_score" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_horizontal"
+                    android:layout_column="3"
+                    android:padding="10dp"
+                    android:text="@string/longest_word" />
 
-            <TextView
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="5"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/date" />
-        </TableRow>
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_horizontal"
+                    android:layout_column="4"
+                    android:padding="10dp"
+                    android:text="@string/word_score" />
 
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_horizontal"
+                    android:layout_column="5"
+                    android:padding="10dp"
+                    android:text="@string/date" />
+            </TableRow>
+            <View
+                android:layout_height="2dip"
+                android:background="#FF909090" />
 
-        <ListView
-            android:id="@+id/leaderBoard_list"
-            android:layout_width="fill_parent"
-            android:layout_height="150dp">
-        </ListView>
+            <ListView
+                android:id="@+id/leaderBoard_list"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp">
+            </ListView>
+        </TableLayout>
 
-    </TableLayout>
-
-
-
-
+    </LinearLayout>
 </RelativeLayout>
