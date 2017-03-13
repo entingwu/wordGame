@@ -41,7 +41,7 @@ public class GameActivity extends Activity {
 
 @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("initialize ", "GameActivity");
+        Log.i(TAG, "GameActivity");
         Bundle bundle = getIntent().getExtras();
         userName = bundle.getString("userName") == null ? "Anonymous" : bundle.getString("userName");
 
@@ -127,6 +127,7 @@ public class GameActivity extends Activity {
     }
 
     public void win() {
+        /** 1. Display Dialog */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         int score = this.mGameFragment.score;
         builder.setMessage("Great job! Total score is: " + score);
@@ -142,19 +143,15 @@ public class GameActivity extends Activity {
         builder.show();
         timer.cancel();
 
-        // send score to database
+        /** 2. Send score to Firebase database */
         game = new Game(userName, String.valueOf(score), String.valueOf(mGameFragment.scorePhase1),
                 String.valueOf(mGameFragment.scorePhase2), mGameFragment.longestWord,
                 String.valueOf(mGameFragment.wordScore));
-        Log.i(TAG, "current username is: " + userName);
-        onAddScore(mDatabase, game);
+        mDatabase.child("games").child(game.id).setValue(game);
+        Log.i(TAG, "onAddScore: " + game.score);
+
+        /** 3. Send high score notification */
+
     }
 
-    private void onAddScore(DatabaseReference postRef, Game game) {
-        postRef
-            .child("games")
-            .child(game.id)
-            .setValue(game);
-        Log.i(TAG, "onAddScore: " + game.score);
-    }
 }

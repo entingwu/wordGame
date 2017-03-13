@@ -37,6 +37,7 @@
     <string name="instruction_label">Instruction</string>
     <string name="score_label">Scores</string>
     <string name="leader_board_text">Leader Board</string>
+    <string name="score_board_text">Score Board</string>
     <string name="input_username">Please enter your username:</string>
     <string name="button_label_sort_score">By Score</string>
     <string name="button_label_sort_word">By Word</string>
@@ -44,8 +45,8 @@
     <string name="username">User</string>
     <string name="date">Date</string>
     <string name="score">Score</string>
-    <string name="score_phase_1">Phase 1</string>
-    <string name="score_phase_2">Phase 2</string>
+    <string name="score_phase_1">P1</string>
+    <string name="score_phase_2">P2</string>
     <string name="longest_word">Word</string>
     <string name="word_score">Word Score</string>
 
