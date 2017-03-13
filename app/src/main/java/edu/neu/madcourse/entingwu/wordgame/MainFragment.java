@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import edu.neu.madcourse.entingwu.R;
+import edu.neu.madcourse.entingwu.firebase.WordGameLeaderBoardActivity;
 import edu.neu.madcourse.entingwu.firebase.models.Game;
 import edu.neu.madcourse.entingwu.firebase.models.User;
 
@@ -29,6 +30,7 @@ public class MainFragment extends Fragment {
         View newButton = rootView.findViewById(R.id.new_wg_button);
         View instructionButton = rootView.findViewById(R.id.instruction_wg_button);
         View acknowledgementButton = rootView.findViewById(R.id.acknowledgement_wg_button);
+        View scoreButton = rootView.findViewById(R.id.score_wg_button);
 
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +100,13 @@ public class MainFragment extends Fragment {
                             }
                         });
                 mDialog = builder.show();
+            }
+        });
+        scoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WordGameLeaderBoardActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         return rootView;

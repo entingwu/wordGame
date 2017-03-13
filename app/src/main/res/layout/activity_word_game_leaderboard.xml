@@ -70,51 +70,15 @@
             android:layout_height="2dip"
             android:background="#FF909090" />
 
-        <TableRow>
-            <TextView
-                android:id="@+id/leader_board_username"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="1"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/username" />
+        <ListView
+            android:id="@+id/leaderBoard_list"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp">
+        </ListView>
 
-            <TextView
-                android:id="@+id/leader_board_score"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="2"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/score" />
-
-            <TextView
-                android:id="@+id/leader_board_longest_word"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="3"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/longest_word" />
-
-            <TextView
-                android:id="@+id/leader_board_word_score"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="4"
-                android:gravity="center_horizontal"
-                android:text="@string/word_score" />
-
-            <TextView
-                android:id="@+id/leader_board_date"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="5"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="@string/date" />
-        </TableRow>
-
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
     </TableLayout>
+
+
 
 
 </RelativeLayout>
