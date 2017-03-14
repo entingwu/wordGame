@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.List;
 import edu.neu.madcourse.entingwu.R;
 import edu.neu.madcourse.entingwu.firebase.models.Game;
+import edu.neu.madcourse.entingwu.wordgame.GameActivity;
 import edu.neu.madcourse.entingwu.wordgame.LeaderBoardAdapter;
 
 public class WordGameLeaderBoardActivity extends AppCompatActivity {
@@ -46,8 +47,8 @@ public class WordGameLeaderBoardActivity extends AppCompatActivity {
         gameList = new ArrayList<>();
         scoreList = new ArrayList<>();
         getLeaderBoardRecords(SCORE, NUM);
-        Log.i(TAG, "@@" + userName);
         getScoreBoardRecords(userName, NUM);
+        GameActivity.startGame = false;
 
         ListView leaderListView = (ListView) findViewById(R.id.leaderBoard_list);
         leaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

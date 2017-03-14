@@ -55,7 +55,9 @@
         <activity
             android:name=".firebase.WordGameLeaderBoardActivity"
             android:label="@string/title_word_game" />
-        <activity android:name=".wordgame.NotificationDialog" />
+        <activity android:name=".wordgame.NotificationDialog"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/title_word_game"/>
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

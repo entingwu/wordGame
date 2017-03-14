@@ -160,7 +160,6 @@ public class GameActivity extends Activity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         finish();
                         onBackPressed();
-                        startGame = false;
                     }
                 });
         builder.show();
@@ -185,10 +184,11 @@ public class GameActivity extends Activity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                         Game game = childDataSnapshot.getValue(Game.class);
-                        pushNotification(game.userName, game.score);
                         Log.i(TAG, "Old high score: " + game.score +
                                 " ,New high score: " + mGameFragment.score);
-                        //if (mGameFragment.score >= Integer.valueOf(game.score)) {}
+                        if (mGameFragment.score >= Integer.valueOf(game.score)) {
+                            pushNotification(game.userName, game.score);
+                        }
                     }
                 }
             }

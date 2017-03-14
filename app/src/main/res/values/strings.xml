@@ -38,9 +38,10 @@
     <string name="score_label">Scores</string>
     <string name="leader_board_text">Leader Board</string>
     <string name="score_board_text">Score Board</string>
-    <string name="input_username">Please enter your username:</string>
+    <string name="input_username">Please enter your name:</string>
     <string name="button_label_sort_score">By Score</string>
     <string name="button_label_sort_word">By Word</string>
+    <string name="button_label_view_score">View Score</string>
 
     <string name="username">User</string>
     <string name="date">Date</string>
