@@ -8,17 +8,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.WindowManager;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import edu.neu.madcourse.entingwu.R;
 import edu.neu.madcourse.entingwu.wordgame.GameActivity;
+import edu.neu.madcourse.entingwu.wordgame.NotificationDialog;
 
 
 public class WordGameMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = WordGameMessagingService.class.getSimpleName();
+    public static String message;
+    private Handler mHandler;
     private AlertDialog mDialog;
 
     /**
@@ -37,7 +45,7 @@ public class WordGameMessagingService extends FirebaseMessagingService {
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
 
         // Handle FCM messages here.
-        Log.d(TAG, "From: " + remoteMessage.getFrom());//From: /topics/news
+        Log.i(TAG, "From: " + remoteMessage.getFrom());//From: /topics/news
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
@@ -46,23 +54,40 @@ public class WordGameMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            String message = remoteMessage.getNotification().getBody();
-            Log.i(TAG, "Message Notification Body: " + message);
+            message = remoteMessage.getNotification().getBody();
             if (GameActivity.startGame) {
+                Log.i(TAG, "Message Notification Body: " + message);
                 sendNotification(message);
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(message);
-                builder.setCancelable(false);
-                builder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {}
-                });
-                mDialog = builder.create();
-                mDialog = builder.show();
+                Log.i(TAG, "Display Dialog: " + message);
+                //Intent intent = new Intent(WordGameMessagingService.this, NotificationDialog.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //startActivity(intent);
+                run();
             }
         }
+    }
 
+    public void run() {
+        Looper.prepare();
+        mHandler = new Handler() {
+            public void handleMessage(Message msg) {
+                Looper.myLooper().quit();
+            }
+        };
+        Log.i(TAG, "I am here");
+        AlertDialog.Builder builder = new AlertDialog.Builder(WordGameMessagingService.this);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {}
+        });
+        mDialog = builder.create();
+        mDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        mDialog.show();
+        mHandler.sendEmptyMessage(0);
+        Looper.loop();
     }
 
     /**
@@ -80,7 +105,7 @@ public class WordGameMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.foo)
-                .setContentTitle("Word Game")
+                .setContentTitle("Class Message")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
@@ -90,5 +115,6 @@ public class WordGameMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        GameActivity.startGame = false;
     }
 }

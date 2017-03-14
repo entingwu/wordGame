@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <user-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -52,8 +54,12 @@
         <activity android:name=".firebase.RealtimeDatabaseActivity" />
         <activity
             android:name=".firebase.WordGameLeaderBoardActivity"
-            android:label="@string/title_word_game"
-            />
+            android:label="@string/title_word_game" />
+        <activity android:name=".wordgame.NotificationDialog" />
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!--<activity android:name=".location.GPSActivity"/>-->
     </application>
 
 </manifest>

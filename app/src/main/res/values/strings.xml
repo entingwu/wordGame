@@ -89,4 +89,10 @@
     <string name="add5">Add 5</string>
     <string name="send_notification_text">Send Android Notification</string>
     <string name="subscribe_to_news">Subscribe to \"News\"</string>
+
+    <string name="latitude_label">Latitude</string>
+    <string name="longitude_label">Longitude</string>
+    <string name="no_location_detected">
+        No location detected. Make sure location is enabled on the device.
+    </string>
 </resources>

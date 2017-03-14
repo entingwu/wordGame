@@ -160,11 +160,11 @@ public class GameActivity extends Activity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         finish();
                         onBackPressed();
+                        startGame = false;
                     }
                 });
         builder.show();
         timer.cancel();
-        startGame = false;
 
         /** 2. Send score to Firebase database */
         game = new Game(userName, String.valueOf(score), String.valueOf(mGameFragment.scorePhase1),
