@@ -58,12 +58,14 @@ public class GameActivity extends Activity {
     public TextView timerText;
     public CountDownTimer timer;
     public long totalSec;
+    public static boolean startGame;
 
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "GameActivity");
         Bundle bundle = getIntent().getExtras();
         userName = bundle.getString("userName") == null ? "Anonymous" : bundle.getString("userName");
+        startGame = true;
 
         dictionary.setAssetManager(getAssets());
         super.onCreate(savedInstanceState);
@@ -162,6 +164,7 @@ public class GameActivity extends Activity {
                 });
         builder.show();
         timer.cancel();
+        startGame = false;
 
         /** 2. Send score to Firebase database */
         game = new Game(userName, String.valueOf(score), String.valueOf(mGameFragment.scorePhase1),
