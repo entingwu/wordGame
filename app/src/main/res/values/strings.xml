@@ -42,6 +42,7 @@
     <string name="button_label_sort_score">By Score</string>
     <string name="button_label_sort_word">By Word</string>
     <string name="button_label_view_score">View Score</string>
+    <string name="button_label_congrats">Cong</string>
 
     <string name="username">User</string>
     <string name="date">Date</string>

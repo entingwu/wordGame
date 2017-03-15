@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="70">
+        android:layout_weight="60">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -121,7 +121,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="30">
+        android:layout_weight="40">
 
         <LinearLayout
             android:orientation="horizontal"

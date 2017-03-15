@@ -46,8 +46,10 @@ public class WordGameLeaderBoardActivity extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference(GAMES);
         gameList = new ArrayList<>();
         scoreList = new ArrayList<>();
+        userName = GameActivity.userName == null? "Anonymous" : GameActivity.userName;
         getLeaderBoardRecords(SCORE, NUM);
         getScoreBoardRecords(userName, NUM);
+        setScoreBoardTitle(userName);
         GameActivity.startGame = false;
 
         ListView leaderListView = (ListView) findViewById(R.id.leaderBoard_list);
@@ -56,10 +58,9 @@ public class WordGameLeaderBoardActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedValue = (String) parent.getItemAtPosition(position);
                 userName = selectedValue.split(DIV)[0];
+                Log.i(TAG, "Curr username: " + userName);
                 getScoreBoardRecords(userName, NUM);
-                TextView scoreBoardTitle = (TextView) findViewById(R.id.textView_scoreboard);
-                String title = userName + " scores";
-                scoreBoardTitle.setText(title);
+                setScoreBoardTitle(userName);
             }
         });
     }
@@ -171,5 +172,11 @@ public class WordGameLeaderBoardActivity extends AppCompatActivity {
                 R.layout.leaderboard_listitem,
                 scoreList);
         scoreListView.setAdapter(adapter);
+    }
+
+    private void setScoreBoardTitle(String userName) {
+        TextView scoreBoardTitle = (TextView) findViewById(R.id.textView_scoreboard);
+        String title = userName + " scores";
+        scoreBoardTitle.setText(title);
     }
 }

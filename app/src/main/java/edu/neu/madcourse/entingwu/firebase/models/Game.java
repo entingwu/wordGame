@@ -15,16 +15,12 @@ public class Game {
     public String longestWord;
     public String wordScore;
     public String date;
+    public String userToken;
     private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     private Date currDate = new Date();
 
     public Game() {
         this.userName = "Anonymous";
-        this.date = dateFormat.format(currDate);
-    }
-
-    public Game(String userName) {
-        this.userName = userName;
         this.date = dateFormat.format(currDate);
     }
 
@@ -34,16 +30,8 @@ public class Game {
         this.date = dateFormat.format(currDate);
     }
 
-    public Game(String userName, String score, String scorePhase1, String scorePhase2) {
-        this.userName = userName;
-        this.score = score;
-        this.scorePhase1 = scorePhase1;
-        this.scorePhase2 = scorePhase2;
-        this.date = dateFormat.format(currDate);
-    }
-
     public Game(String userName, String score, String scorePhase1,
-                String scorePhase2, String longestWord, String wordScore) {
+                String scorePhase2, String longestWord, String wordScore, String userToken) {
         this.userName = userName;
         this.score = score;
         this.scorePhase1 = scorePhase1;
@@ -51,5 +39,6 @@ public class Game {
         this.longestWord = longestWord;
         this.wordScore = wordScore;
         this.date = dateFormat.format(currDate);
+        this.userToken = userToken;
     }
 }

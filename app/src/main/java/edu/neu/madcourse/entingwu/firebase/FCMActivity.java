@@ -29,10 +29,10 @@ public class FCMActivity extends AppCompatActivity {
     private static final String TAG = FCMActivity.class.getSimpleName();
 
     // Please add the server key from your firebase console in the follwoing format "key=<serverKey>"
-    private static final String SERVER_KEY = "key=AAAAyUeo0PE:APA91bEf8-5uFFKVxuP7RsqI-zZhUZAoAIyY9eU5myfNq4nLrBTU7e8ECauhk8Iu6IFLCC3nWmiSqn6snWOnsTzS7LicevQpa2QAWw5IMeL5IIODcXNS0W7m4pziaWj3EdG7H5t0U73-";
+    public static final String SERVER_KEY = "key=AAAAyUeo0PE:APA91bEf8-5uFFKVxuP7RsqI-zZhUZAoAIyY9eU5myfNq4nLrBTU7e8ECauhk8Iu6IFLCC3nWmiSqn6snWOnsTzS7LicevQpa2QAWw5IMeL5IIODcXNS0W7m4pziaWj3EdG7H5t0U73-";
 
     // This is the client registration token
-    private static final String CLIENT_REGISTRATION_TOKEN = "fnKGxpfxRE0:APA91bGbZOTT6qtBV5R5blumHCIkmxaOay_Km6PyA3ErmuBRRIZ9nuPtXjnpRQghLYcYQs9XarlomvsONCqbhnQVf2q0GLiS-zFEgJQpUk69_8qBACJ6k-yyJ2gsYgFcf6RsXI1ucHYG";
+    public static final String CLIENT_REGISTRATION_TOKEN = "fnKGxpfxRE0:APA91bGbZOTT6qtBV5R5blumHCIkmxaOay_Km6PyA3ErmuBRRIZ9nuPtXjnpRQghLYcYQs9XarlomvsONCqbhnQVf2q0GLiS-zFEgJQpUk69_8qBACJ6k-yyJ2gsYgFcf6RsXI1ucHYG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

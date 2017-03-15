@@ -35,22 +35,21 @@ import java.util.List;
 import java.util.Scanner;
 
 import edu.neu.madcourse.entingwu.R;
+import edu.neu.madcourse.entingwu.firebase.FCMActivity;
 import edu.neu.madcourse.entingwu.firebase.models.Game;
 
 public class GameActivity extends Activity {
 
-    // Please add the server key from your firebase console in the follwoing format "key=<serverKey>"
-    private static final String SERVER_KEY = "key=AAAAyUeo0PE:APA91bEf8-5uFFKVxuP7RsqI-zZhUZAoAIyY9eU5myfNq4nLrBTU7e8ECauhk8Iu6IFLCC3nWmiSqn6snWOnsTzS7LicevQpa2QAWw5IMeL5IIODcXNS0W7m4pziaWj3EdG7H5t0U73-";
     private static final String TAG = GameActivity.class.getSimpleName();
     private static final String SCORE = "score";
     private static final String GAMES = "games";
+    public static String userName;
     private DatabaseReference mDatabase;
     private MediaPlayer mMediaPlayer;
     private Handler mHandler = new Handler();
     private GameFragment mGameFragment;
     private ListView list;
     private ArrayAdapter<String> adapter;
-    private String userName;
     private Game game;
     public List<String> listItems = new ArrayList<>();
     public Dictionary dictionary = new Dictionary();
@@ -168,7 +167,7 @@ public class GameActivity extends Activity {
         /** 2. Send score to Firebase database */
         game = new Game(userName, String.valueOf(score), String.valueOf(mGameFragment.scorePhase1),
                 String.valueOf(mGameFragment.scorePhase2), mGameFragment.longestWord,
-                String.valueOf(mGameFragment.wordScore));
+                String.valueOf(mGameFragment.wordScore), FCMActivity.CLIENT_REGISTRATION_TOKEN);
         mDatabase.child(GAMES).child(game.id).setValue(game);
         Log.i(TAG, "onAddScore: " + game.score);
 
@@ -187,7 +186,7 @@ public class GameActivity extends Activity {
                         Log.i(TAG, "Old high score: " + game.score +
                                 " ,New high score: " + mGameFragment.score);
                         if (mGameFragment.score >= Integer.valueOf(game.score)) {
-                            pushNotification(game.userName, game.score);
+                            pushNotification(game.userName, game.score, "");
                         }
                     }
                 }
@@ -197,35 +196,40 @@ public class GameActivity extends Activity {
         });
     }
 
-    public void pushNotification(final String userName, final String score) {
+    public static void pushNotification(final String userName, final String score, final String userToken) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                pushNotificationTask(userName, score);
+                pushNotificationTask(userName, score, userToken);
             }
         }).start();
     }
 
-    public void pushNotificationTask(final String userName, String score) {
+    public static void pushNotificationTask(final String userName, String score, String userToken) {
         JSONObject jPayload = new JSONObject();
         JSONObject jNotification = new JSONObject();
         try {
             jNotification.put("title", "Google I/O 2016");
-            jNotification.put("body", userName + " gets " + score + ". Say Congratulations!");
+            jNotification.put("body", userName + " got " + score + ". Congrats!");
             jNotification.put("sound", "default");
             jNotification.put("badge", "1");
             jNotification.put("click_action", "OPEN_ACTIVITY_1");
 
             // If sending to a single client
-            //jPayload.put("to", CLIENT_REGISTRATION_TOKEN);
-            jPayload.put("to", "/topics/news");
+            if (userToken == null || userToken.equals("")) {
+                Log.i(TAG, "No userToken, then send to /topics/news");
+                jPayload.put("to", "/topics/news");
+            } else {
+                Log.i(TAG, "Send to the user with userToken:" + userToken);
+                jPayload.put("to", userToken);
+            }
             jPayload.put("priority", "high");
             jPayload.put("notification", jNotification);
 
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", SERVER_KEY);
+            conn.setRequestProperty("Authorization", FCMActivity.SERVER_KEY);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
 
@@ -243,7 +247,7 @@ public class GameActivity extends Activity {
                 @Override
                 public void run() {
                     Log.e(TAG, "run: " + resp);
-                    Toast.makeText(GameActivity.this, "New high score!", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(GameActivity.this, "New high score!", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -252,7 +256,7 @@ public class GameActivity extends Activity {
         }
     }
 
-    private String convertStreamToString(InputStream is) {
+    public static String convertStreamToString(InputStream is) {
         Scanner s = new Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next().replace(",", ",\n") : "";
     }
