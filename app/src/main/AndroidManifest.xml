@@ -3,8 +3,8 @@
     package="edu.neu.madcourse.entingwu">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--<user-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
 
+    <!-- <user-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -53,14 +53,18 @@
         <activity android:name=".firebase.RealtimeDatabaseActivity" />
         <activity
             android:name=".firebase.WordGameLeaderBoardActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_word_game" />
-        <activity android:name=".wordgame.NotificationDialog"
-            android:theme="@android:style/Theme.Dialog"
-            android:label="@string/title_word_game"/>
+        <activity
+            android:name=".wordgame.NotificationDialog"
+            android:label="@string/title_word_game"
+            android:theme="@android:style/Theme.Dialog" />
 
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <!--<activity android:name=".location.GPSActivity"/>-->
+        <!-- <activity android:name=".location.GPSActivity"/> -->
+        <!--<activity android:name=".sensor.MainActivity"></activity>-->
     </application>
 
 </manifest>

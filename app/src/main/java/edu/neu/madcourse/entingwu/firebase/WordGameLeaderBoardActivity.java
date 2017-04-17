@@ -27,8 +27,8 @@ import edu.neu.madcourse.entingwu.wordgame.LeaderBoardAdapter;
 public class WordGameLeaderBoardActivity extends AppCompatActivity {
 
     private static final String TAG = WordGameLeaderBoardActivity.class.getSimpleName();
-    private static final String DIV = "\t\t\t\t";
-    private static final String SDIV = "\t\t\t";
+    private static final String DIV = "  ";
+    private static final String SDIV = "  ";
     private static final String SCORE = "score";
     private static final String WORD_SCORE = "wordScore";
     private static final String USER_NAME = "userName";

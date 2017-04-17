@@ -47,10 +47,9 @@
     <string name="username">User</string>
     <string name="date">Date</string>
     <string name="score">Score</string>
-    <string name="score_phase_1">P1</string>
-    <string name="score_phase_2">P2</string>
+    <string name="score_phase">Phase</string>
     <string name="longest_word">Word</string>
-    <string name="word_score">Word Score</string>
+    <string name="word_score">WordScore</string>
 
     <!--TicTacToe-->
     <string name="app_name_ttt">UT3</string>

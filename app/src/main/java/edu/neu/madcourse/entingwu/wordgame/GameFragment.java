@@ -210,8 +210,8 @@ public class GameFragment extends Fragment {
                 mSmallTiles[large][small] = new Tile(this);
             }
             // assign characters to tiles
+            String word = ((GameActivity)getActivity()).getRandomWord();
             for (int i = 0; i < 9; ++i) {
-                String word = ((GameActivity)getActivity()).getRandomWord();
                 mSmallTiles[large][allocation.get(i)].character = word.charAt(i);
             }
 

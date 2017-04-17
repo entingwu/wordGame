@@ -3,26 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_vertical|end"
+    android:orientation="horizontal"
+    android:gravity="center"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/leaderBoard_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="10dp" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:gravity="start"
+        android:paddingRight="10dp"
+        android:textColor="@color/colorPrimary" />
 
     <Button
         android:id="@+id/button_congrats"
-        android:text="@string/button_label_congrats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/congrat"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:background="?android:attr/selectableItemBackground"
-        android:textColor="@color/colorPrimaryLight"
         android:gravity="end"
-        android:onClick="sendCongrats"/>
+        android:onClick="sendCongrats"
+        android:paddingBottom="10dp" />
 </LinearLayout>

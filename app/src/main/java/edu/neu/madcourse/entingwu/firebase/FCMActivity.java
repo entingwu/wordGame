@@ -30,9 +30,12 @@ public class FCMActivity extends AppCompatActivity {
 
     // Please add the server key from your firebase console in the follwoing format "key=<serverKey>"
     public static final String SERVER_KEY = "key=AAAAyUeo0PE:APA91bEf8-5uFFKVxuP7RsqI-zZhUZAoAIyY9eU5myfNq4nLrBTU7e8ECauhk8Iu6IFLCC3nWmiSqn6snWOnsTzS7LicevQpa2QAWw5IMeL5IIODcXNS0W7m4pziaWj3EdG7H5t0U73-";
-
     // This is the client registration token
-    public static final String CLIENT_REGISTRATION_TOKEN = "fnKGxpfxRE0:APA91bGbZOTT6qtBV5R5blumHCIkmxaOay_Km6PyA3ErmuBRRIZ9nuPtXjnpRQghLYcYQs9XarlomvsONCqbhnQVf2q0GLiS-zFEgJQpUk69_8qBACJ6k-yyJ2gsYgFcf6RsXI1ucHYG";
+    //public static final String CLIENT_REGISTRATION_TOKEN = "fnKGxpfxRE0:APA91bGbZOTT6qtBV5R5blumHCIkmxaOay_Km6PyA3ErmuBRRIZ9nuPtXjnpRQghLYcYQs9XarlomvsONCqbhnQVf2q0GLiS-zFEgJQpUk69_8qBACJ6k-yyJ2gsYgFcf6RsXI1ucHYG";
+    // LG
+    //public static final String CLIENT_REGISTRATION_TOKEN = "elbwp_ASNCI:APA91bHbphujgLbRZT5B8djXXBgDOiJGkKaTN8qU2VFyIJMEy1iAUIi0xlG4qvgKdQhd3KRDHofgUUzc58CoA53EP7Hs4DY-P_-4g4wAAtWPrsJdug5oCbZ4VVgI8gkGHxhM6vvUAklm";
+    // ZTE
+    public static final String CLIENT_REGISTRATION_TOKEN = "f50NPZp5AgU:APA91bHNNUuXHUAqY7K9CJezpdhT4XEVCWad8ZEiUZXCUr33HAjViDSbMEGcgkkF9roUb9SR_i0_PFBOh4m0UwHQG9o2fJzYVcJReWchEnMvwiejH28M5agYtelcg_YkTb0j3VGzwsek";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

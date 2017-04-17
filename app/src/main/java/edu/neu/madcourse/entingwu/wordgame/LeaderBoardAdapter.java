@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import edu.neu.madcourse.entingwu.R;
-import edu.neu.madcourse.entingwu.firebase.WordGameMessagingService;
 import edu.neu.madcourse.entingwu.firebase.models.Game;
 
 public class LeaderBoardAdapter extends ArrayAdapter<String> {
@@ -29,8 +28,8 @@ public class LeaderBoardAdapter extends ArrayAdapter<String> {
     private static final String TAG = LeaderBoardAdapter.class.getSimpleName();
     private static final String USER_NAME = "userName";
     private static final String GAMES = "games";
-    private static final String DIV = "\t\t\t\t";
-    private static final String SDIV = "\t\t\t";
+    private static final String DIV = "  ";
+    private static final String SDIV = "  ";
     private final Context context;
     private DatabaseReference ref;
     private List<String> games;
