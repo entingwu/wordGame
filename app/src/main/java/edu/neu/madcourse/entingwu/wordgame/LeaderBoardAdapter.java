@@ -18,9 +18,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.neu.madcourse.entingwu.R;
+import edu.neu.madcourse.entingwu.firebase.WordGameLeaderBoardActivity;
 import edu.neu.madcourse.entingwu.firebase.models.Game;
 
 public class LeaderBoardAdapter extends ArrayAdapter<String> {
@@ -33,7 +36,7 @@ public class LeaderBoardAdapter extends ArrayAdapter<String> {
     private final Context context;
     private DatabaseReference ref;
     private List<String> games;
-    private String userToken;
+    private Map<String, String> map = new HashMap<>();
     private int layoutResourceId;
 
     public LeaderBoardAdapter(Context context, int layoutResourceId, List<String> games) {
@@ -56,14 +59,17 @@ public class LeaderBoardAdapter extends ArrayAdapter<String> {
         Log.i(TAG, "Show record: " + record.gameStr);
         String[] strs = (record.gameStr.split(DIV).length > 1) ?
                 record.gameStr.split(DIV) : record.gameStr.split(SDIV);
-        final String winner = strs[0];
-        final String score = strs[1];
+        // If strs[0] is a number, which means that it is from ScoreBoard
+        // If strs[0] is a string, which means that it is from LeaderBoard
+        final String winner = isNumeric(strs[0])? GameActivity.userName : strs[0];
+        final String score = isNumeric(strs[0])? strs[0] : strs[1];
         getUserToken(winner);
         record.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Send congrats to " + winner, Toast.LENGTH_SHORT).show();
-                GameActivity.pushNotification(winner, score, userToken);
+                GameActivity.pushNotification(winner, score, map.get(winner));
+                Log.i(TAG, "userToken: " + map.get(winner));
             }
         });
 
@@ -80,7 +86,8 @@ public class LeaderBoardAdapter extends ArrayAdapter<String> {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                         Game game = childDataSnapshot.getValue(Game.class);
-                        userToken = game.userToken;
+                        map.put(userName, game.userToken);
+                        Log.i(TAG, "userName: " + userName + "getUserToken: " + game.userToken);
                     }
                 }
             }
@@ -95,5 +102,9 @@ public class LeaderBoardAdapter extends ArrayAdapter<String> {
         String gameStr;
         TextView textView;
         Button button;
+    }
+
+    public boolean isNumeric(String s) {
+        return s.matches("[-+]?\\d*\\.?\\d+");
     }
 }

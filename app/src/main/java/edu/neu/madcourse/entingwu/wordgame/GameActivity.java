@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +43,8 @@ import edu.neu.madcourse.entingwu.firebase.models.Game;
 public class GameActivity extends Activity {
 
     private static final String TAG = GameActivity.class.getSimpleName();
+    private static final String SERVER_KEY =
+            "key=AAAAyUeo0PE:APA91bEf8-5uFFKVxuP7RsqI-zZhUZAoAIyY9eU5myfNq4nLrBTU7e8ECauhk8Iu6IFLCC3nWmiSqn6snWOnsTzS7LicevQpa2QAWw5IMeL5IIODcXNS0W7m4pziaWj3EdG7H5t0U73-";
     private static final String SCORE = "score";
     private static final String GAMES = "games";
     public static String userName;
@@ -56,6 +60,7 @@ public class GameActivity extends Activity {
     public TextView tx;
     public TextView timerText;
     public CountDownTimer timer;
+    public String token;
     public long totalSec;
     public static boolean startGame;
 
@@ -65,6 +70,7 @@ public class GameActivity extends Activity {
         Bundle bundle = getIntent().getExtras();
         userName = bundle.getString("userName") == null ? "Anonymous" : bundle.getString("userName");
         startGame = true;
+        token = FirebaseInstanceId.getInstance().getToken();
 
         dictionary.setAssetManager(getAssets());
         super.onCreate(savedInstanceState);
@@ -167,7 +173,8 @@ public class GameActivity extends Activity {
         /** 2. Send score to Firebase database */
         game = new Game(userName, String.valueOf(score), String.valueOf(mGameFragment.scorePhase1),
                 String.valueOf(mGameFragment.scorePhase2), mGameFragment.longestWord,
-                String.valueOf(mGameFragment.wordScore), FCMActivity.CLIENT_REGISTRATION_TOKEN);
+                String.valueOf(mGameFragment.wordScore), token);
+        Log.i(TAG, "player token: " + token);
         mDatabase.child(GAMES).child(game.id).setValue(game);
         Log.i(TAG, "onAddScore: " + game.score);
 
@@ -229,7 +236,7 @@ public class GameActivity extends Activity {
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", FCMActivity.SERVER_KEY);
+            conn.setRequestProperty("Authorization", GameActivity.SERVER_KEY);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
 

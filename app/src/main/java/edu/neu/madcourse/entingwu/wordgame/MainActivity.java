@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import edu.neu.madcourse.entingwu.R;
 
 public class MainActivity extends Activity {
+
+    public static final String NEWS = "news";
     MediaPlayer mMediaPlayer;
     boolean mute = false;
     // ...
@@ -18,6 +22,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_game);
+        FirebaseMessaging.getInstance().subscribeToTopic(NEWS);
 
         Button muteButton = (Button)findViewById(R.id.mute_button);
         muteButton.setOnClickListener(new View.OnClickListener() {

@@ -37,7 +37,7 @@ public class WordGameLeaderBoardActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private List<String> gameList;
     private List<String> scoreList;
-    private String userName = "Anonymous";
+    public String userName = "Anonymous";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
