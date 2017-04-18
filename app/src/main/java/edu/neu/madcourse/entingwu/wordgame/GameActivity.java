@@ -59,6 +59,7 @@ public class GameActivity extends Activity {
     public Dictionary dictionary = new Dictionary();
     public TextView tx;
     public TextView timerText;
+    public TextView phaseTextView;
     public CountDownTimer timer;
     public String token;
     public long totalSec;
@@ -77,6 +78,7 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_word_game_frag);
         mGameFragment = (GameFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_wordgame);
+
         list = (ListView) findViewById(R.id.matchedWord);
         adapter = new ArrayAdapter<String>(getApplicationContext(),
                 R.layout.list_text,
@@ -89,6 +91,12 @@ public class GameActivity extends Activity {
         timerText = (TextView) findViewById(R.id.timer);
         initTimer(180000);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        phaseTextView = (TextView) this.findViewById(R.id.phase_text_view);
+        if (!mGameFragment.isPhaseTwo) {
+            phaseTextView.setText(R.string.phase_one);
+        } else {
+            phaseTextView.setText(R.string.phase_two);
+        }
     }
 
     @Override
@@ -105,6 +113,10 @@ public class GameActivity extends Activity {
         tx.setText("Score: " + score);
     }
 
+    public void setPhaseTwoText() {
+        phaseTextView.setText(R.string.phase_two);
+    }
+
     void initTimer(long leftTime) {
         if(timer != null) {
             timer.cancel();
@@ -115,7 +127,7 @@ public class GameActivity extends Activity {
                 totalSec =  millisUntilFinished / 1000;
                 long mins = totalSec / 60;
                 long secs = totalSec % 60;
-                timerText.setText(String.format("Time Remaining: %d:%d", mins, secs));
+                timerText.setText(String.format("Time: %d:%d", mins, secs));
 
                 if (mins < 1) {
                     mGameFragment.playTimerSound();

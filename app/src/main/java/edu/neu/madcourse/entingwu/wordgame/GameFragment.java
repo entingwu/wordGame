@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import edu.neu.madcourse.entingwu.R;
 
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class GameFragment extends Fragment {
     private int mLastLarge;
     private int mLastSmall;
 
-    private boolean isPhaseTwo;
+    public boolean isPhaseTwo;
     public int scorePhase1 = 0;
     public int scorePhase2 = 0;
     public int score = 0;
@@ -94,9 +96,10 @@ public class GameFragment extends Fragment {
         updateAllTiles();
         return rootView;
     }
-//
+
     private void initViews(View rootView) {
         mEntireBoard.setView(rootView);
+
         for (int large = 0; large < 9; large++) {
             View outer = rootView.findViewById(mLargeIds[large]);
             mLargeTiles[large].setView(outer);
@@ -236,6 +239,7 @@ public class GameFragment extends Fragment {
         Tile phaseTwoPanel = mLargeTiles[4];
         if(phaseOneEnds() && !isPhaseTwo) {
             isPhaseTwo = true;
+            ((GameActivity)getActivity()).setPhaseTwoText();
             // Use the middle one as the bonus points;
             List<Character> characters = new ArrayList<>();
             for (Tile largeTile : mLargeTiles) {
